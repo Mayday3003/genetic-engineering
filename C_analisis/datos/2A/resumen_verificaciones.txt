@@ -1,0 +1,11 @@
+B5_potencial.xvg: Potential                   -737010     660000 2.0251e+07 -3.95324e+06  (kJ/mol)
+B6_temperatura.xvg: Temperature                 298.098       0.21    1.03891   0.122996  (K)
+B7_presion.xvg: Pressure                    4.37223        5.4    85.5388    1.85392  (bar)
+B7_densidad.xvg: Density                      993.97       0.35    1.70959   0.657547  (kg/m^3)
+B7_volumen.xvg: Volume                      914.434       0.33    1.57174  -0.603924  (nm^3)
+B8_temperatura.xvg: Temperature                 297.977      0.056   0.990361   0.192727  (K)
+B8_presion.xvg: Pressure                    6.13929        2.3    78.0628   -11.8938  (bar)
+B8_densidad.xvg: Density                     993.759       0.19    1.64291   -0.86011  (kg/m^3)
+SOL         28895
+CL               4
+Performance:      228.566        0.105

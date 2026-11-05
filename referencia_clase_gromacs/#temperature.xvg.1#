@@ -1,0 +1,45 @@
+# This file was created Tue Oct  6 14:46:34 2026
+# Created by:
+#                 :-) GROMACS - gmx energy, 2026.0-Fedora44 (-:
+# 
+# Executable:   /usr/bin/gmx
+# Data prefix:  /usr
+# Working dir:  /home/mayday3003/Documents/gromacs
+# Command line:
+#   gmx energy -f nvt.edr -o temperature.xvg
+# gmx energy is part of G R O M A C S:
+#
+# GRoups of Organic Molecules in ACtion for Science
+#
+@    title "GROMACS Energies"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "(K)"
+@TYPE xy
+@ view 0.15, 0.15, 0.75, 0.85
+@ legend on
+@ legend box on
+@ legend loctype view
+@ legend 0.78, 0.8
+@ legend length 2
+@ s0 legend "Temperature"
+    0.000000  298.302704
+    5.000000  278.249908
+   10.000000  293.937073
+   15.000000  298.769012
+   20.000000  297.836273
+   25.000000  300.084381
+   30.000000  295.880188
+   35.000000  299.389191
+   40.000000  298.235992
+   45.000000  296.956848
+   50.000000  300.049927
+   55.000000  296.573364
+   60.000000  302.050781
+   65.000000  299.681396
+   70.000000  297.233337
+   75.000000  299.456573
+   80.000000  300.162689
+   85.000000  294.797699
+   90.000000  301.972107
+   95.000000  300.942047
+  100.000000  297.943115

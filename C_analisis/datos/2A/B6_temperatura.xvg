@@ -1,0 +1,41 @@
+# This file was created Thu Nov  5 00:53:45 2026
+# Created by:
+#                :-) GROMACS - gmx energy, 2025.3-conda_forge (-:
+# 
+# Executable:   /usr/local/bin.AVX2_256/gmx_mpi
+# Data prefix:  /usr/local
+# Working dir:  /content/drive/MyDrive/proyecto_2/B_dinamica/2A
+# Command line:
+#   gmx_mpi energy -f nvt.edr -o /content/drive/MyDrive/proyecto_2/C_analisis/datos/2A/B6_temperatura.xvg -b 20
+# gmx energy is part of G R O M A C S:
+#
+# Grunge ROck MAChoS
+#
+@    title "GROMACS Energies"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "(K)"
+@TYPE xy
+@ view 0.15, 0.15, 0.75, 0.85
+@ legend on
+@ legend box on
+@ legend loctype view
+@ legend 0.78, 0.8
+@ legend length 2
+@ s0 legend "Temperature"
+   20.000000  297.059235
+   25.000000  298.106323
+   30.000000  297.575928
+   35.000000  297.764771
+   40.000000  298.578918
+   45.000000  297.127014
+   50.000000  297.882507
+   55.000000  298.003174
+   60.000000  299.128937
+   65.000000  299.313049
+   70.000000  296.499207
+   75.000000  296.353241
+   80.000000  299.223083
+   85.000000  297.003937
+   90.000000  296.949127
+   95.000000  298.091766
+  100.000000  297.710968

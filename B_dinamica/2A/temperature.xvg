@@ -1,0 +1,45 @@
+# This file was created Tue Nov  3 10:44:00 2026
+# Created by:
+#                 :-) GROMACS - gmx energy, 2026.0-Fedora44 (-:
+# 
+# Executable:   /usr/bin/gmx
+# Data prefix:  /usr
+# Working dir:  /home/mayday3003/Documents/githubrepos/genetic-engineering/B_dinamica/2A
+# Command line:
+#   gmx energy -f nvt.edr -o temperature.xvg
+# gmx energy is part of G R O M A C S:
+#
+# Great Red Owns Many ACres of Sand 
+#
+@    title "GROMACS Energies"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "(K)"
+@TYPE xy
+@ view 0.15, 0.15, 0.75, 0.85
+@ legend on
+@ legend box on
+@ legend loctype view
+@ legend 0.78, 0.8
+@ legend length 2
+@ s0 legend "Temperature"
+    0.000000  298.176392
+    5.000000  275.291351
+   10.000000  291.905609
+   15.000000  296.313202
+   20.000000  296.508575
+   25.000000  297.784058
+   30.000000  300.037170
+   35.000000  298.423248
+   40.000000  297.597870
+   45.000000  299.205933
+   50.000000  298.234467
+   55.000000  297.321442
+   60.000000  297.955658
+   65.000000  297.000000
+   70.000000  298.206390
+   75.000000  298.006409
+   80.000000  297.327087
+   85.000000  298.384583
+   90.000000  299.647705
+   95.000000  297.507965
+  100.000000  297.709442
