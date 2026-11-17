@@ -1,0 +1,10 @@
+&general
+  sys_name="2B_r3", startframe=501, endframe=1001, interval=5,
+  temperature=298.15, PBRadii=4, keep_files=0, gmx_path="/usr/local/bin",
+/
+&gb
+  igb=8, saltcon=0.150,
+/
+&decomp
+  idecomp=2, dec_verbose=3, csv_format=1, print_res="all",
+/

@@ -31,5 +31,5 @@ Cada parte tiene un documento `.md` con su letra y tema (por ejemplo `A_inspecci
 - El nanobody está desplazado respecto a la RNasa entre variantes: 2.1 Å en cristales y 2.6 Å en MD, en el orden de su oscilación propia.
 - La interfaz conserva su tamaño pero cambia de composición: Arg110 y Thr30 entran, Arg104 sale.
 - En MD 2B tiene ~1 puente de H más (6.2 → 7.2), pero con pérdidas parciales: el puente salino con Glu111 y el enlace con Tyr115 son menos estables.
-- MM/GBSA: ΔΔGcalc = −2.22 ± 0.99 kcal/mol frente a ΔΔGexp = −2.98 (signo correcto, magnitud similar). La mejora viene de menor desolvatación polar y algo de vdW.
-- Las 9 mutaciones suman +6 kcal/mol (pierden Tyr101 y Arg106); la ganancia está en residuos no mutados (Gly99, Gly100, Tyr27 del nanobody; Gln69, Lys61 de la RNasa): efecto cooperativo.
+- MM/GBSA, 3 réplicas por sistema: ΔΔGcalc = +1.4 ± 4.5 kcal/mol (exp. −2.98). La réplica original daba −2.22, pero la variabilidad entre réplicas supera la diferencia: el método no resuelve 2A vs 2B con 1 ns.
+- Reproducible entre réplicas: pérdida de Tyr101→Asp (+6.5), ganancia de Arg107 (−2.7) y de Gln69 de la RNasa (−2.0).

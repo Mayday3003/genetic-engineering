@@ -18,7 +18,30 @@
 python scripts/analisis_energia.py
 ```
 
-## D. ΔΔG calculado vs experimental
+## Resultado con 3 réplicas (el resultado principal)
+
+La corrida original (r1) se complementó con 2 réplicas por sistema (r2, r3; mismo protocolo, otra semilla de velocidades; ver [`replicas/LEEME.md`](replicas/LEEME.md)). Salida: `tablas/resumen_replicas.txt`, `tablas/descomposicion_replicas.csv`, `figuras/D_replicas_dG.png`.
+
+| ΔG unión (kcal/mol) | r1 | r2 | r3 | Media ± SD |
+|---|---|---|---|---|
+| 2A | −50.11 | −57.10 | −44.01 | −50.40 ± 6.55 |
+| 2B | −52.33 | −50.32 | −44.46 | −49.04 ± 4.09 |
+
+**ΔΔG_calc (3 réplicas) = +1.36 ± 4.46 kcal/mol** (error estándar entre réplicas) frente a ΔΔG_exp = −2.98. Solo 5 de las 9 combinaciones de réplicas 2B−2A dan signo negativo.
+
+**Lectura honesta:** la variabilidad entre réplicas (SD 4–7 kcal/mol, sobre todo en EEL y GB) es mayor que la diferencia buscada. Con 1 ns y 3 réplicas, **el método no distingue 2A de 2B**; el −2.22 de r1 era una fluctuación favorable, no una predicción robusta. El SEM por bloques de una sola trayectoria (±1) subestimaba el error real unas 4 veces.
+
+Lo que sí se mantiene entre réplicas (|ΔΔG_i| > 2× error):
+- **Tyr101→Asp: +6.5** (pérdida de un hotspot; robusto).
+- **Thr107→Arg: −2.7**, **Arg106→Thr: +1.3**, **Tyr29→Trp: −0.7**.
+- **Gln69 (RNasa): −2.0** (gana contribución en 2B).
+- Suma de ΔΔG_i: mutaciones **+3.8**, nanobody no mutado **−0.2**, RNasa **−1.9**.
+
+Lo que **no** se sostiene: la ganancia en Gly99, Gly100, Tyr27 y Tyr33 del nanobody y la pérdida de peso de Tyr115 y Glu111 de la RNasa (ΔΔG_i de r1 dentro del error entre réplicas; p. ej. Tyr115 pasa de +1.9 en r1 a +0.2 ± 1.0 con 3 réplicas).
+
+> Las secciones D, E y F siguientes describen la réplica r1 sola. Sus cifras son ilustrativas; las conclusiones robustas son las de este apartado.
+
+## D. ΔΔG calculado vs experimental (réplica r1)
 
 | | 2A (inicial) | 2B (madurada) | ΔΔG (2B − 2A) |
 |---|---|---|---|
@@ -73,22 +96,22 @@ python scripts/analisis_energia.py
 
 ## Respuestas (preguntas 3–6)
 
-**3. ¿Cómo explicar >100× de afinidad con estructuras tan parecidas?** El modelo sí distingue los complejos: ΔΔG = −2.2 kcal/mol, del orden del experimental. La diferencia no es geométrica a escala global (RMSD bajos, mismo número de contactos y mismo término no polar), sino de la **calidad electrostática/solvatación y del empaquetamiento local** de la interfaz.
+**3. ¿Cómo explicar >100× de afinidad con estructuras tan parecidas?** Con r1 el modelo da −2.2 kcal/mol, pero con 3 réplicas el ΔΔG es +1.4 ± 4.5: **no se puede afirmar que el modelo reproduzca la mejora**. Lo que sí se observa de forma reproducible es un cambio local de la interfaz (pérdida de Tyr101, ganancia de Arg107 y Gln69), no un cambio global de geometría ni del término no polar.
 
-**4. ¿Efecto individual o cooperativo?** Cooperativo. Las mutaciones, sumadas, son **desfavorables (+6 kcal/mol)**: la pérdida de Tyr101 y Arg106 no la compensa por sí solo Arg107. La ganancia aparece en **residuos no mutados** del CDR3 (Gly99, Gly100) y del CDR1 (Tyr27, Tyr33) y en la RNasa (Gln69, Lys61, Tyr73), que se acomodan al nuevo CDR3. Es una redistribución de la interfaz, no la suma de efectos puntuales.
+**4. ¿Individual o cooperativo?** Los datos solo apoyan parcialmente un efecto cooperativo. Las 9 mutaciones suman **+3.8 a +6 kcal/mol** (desfavorables: Tyr101→Asp y Arg106→Thr no los compensa Thr107→Arg), y la RNasa gana −1.9 (sobre todo Gln69). La ganancia que r1 mostraba en residuos no mutados del nanobody (Gly99/100, Tyr27/33) **no es reproducible**. Esto sugiere que el origen de la mejora no está en la suma de contribuciones por residuo que ve MM/GBSA; podría venir de entropía, de aguas de interfaz o de muestreo que 1 ns no captura.
 
-**5. ¿Cambió el mapa energético?** Sí. En 2A la interfaz se apoya en Tyr101 y en el par Tyr115/Glu111 de la RNasa. En 2B el anclaje pasa a Arg107 y a la región Gln69–Thr70 de la RNasa, y Tyr115/Glu111 pierden peso. Esto es coherente con la parte C: el puente salino con Glu111 y la interacción con Tyr115 son menos estables en la MD de 2B. La variante madura tiene una interfaz energéticamente distinta con geometría global similar.
+**5. ¿Cambió el mapa energético?** Sí en lo local y reproducible: 2A se apoya en Tyr101 (−5.2) y 2B en Arg107 (−5.2) y en Gln69 de la RNasa. Los demás cambios del mapa (Tyr115, Glu111) caen dentro del ruido.
 
-**6. ¿Qué tan bien lo explica el modelo?** Reproduce bien el **signo** y razonablemente la **magnitud** (−2.2 vs −3.0) y da un origen físicamente coherente (desolvatación menos costosa + vdW, con redistribución). Que el acuerdo numérico sea tan cercano debe tomarse con cautela (ver limitaciones): el error real es mayor que el SEM reportado.
+**6. ¿Qué tan bien lo explica el modelo?** Mal en lo cuantitativo y no concluyente en lo cualitativo: con una réplica acierta signo y magnitud, con tres el ΔΔG es +1.4 ± 4.5 frente a −2.98. Se explica el mecanismo local (cambios en Tyr101, Arg106, Thr107, Gln69) pero no el ΔΔG. Lo que está bien representado: la posición de los residuos clave. Lo que no: la magnitud neta, porque faltan entropía, más muestreo y un tratamiento mejor de los términos EEL/GB (cada uno varía ±10 kcal/mol entre réplicas y se compensan).
 
 ## Limitaciones
-- **Muestreo:** una sola réplica de 1 ns por sistema y una ventana de 0.5 ns; los 101 snapshots están correlacionados. El SEM por bloques (±1) subestima la incertidumbre real; con réplicas independientes es esperable una dispersión de ±1–2 kcal/mol.
+- **Muestreo:** 3 réplicas de 1 ns por sistema (las 3 comparten estructura inicial y caja) y una ventana de 0.5 ns; los 101 snapshots están correlacionados. El SEM por bloques de una sola trayectoria (±1) subestima la incertidumbre real: entre réplicas la SD es de 4–7 kcal/mol.
 - **Modelo energético:** GB implícito (sin aguas de interfaz explícitas), campo de fuerza fijo, sin entropía configuracional. Los ΔG absolutos no son comparables con el experimento.
 - **Composición distinta:** 2A conserva dos residuos de la etiqueta de expresión (Gly−1, Ser0 del nanobody) y le falta la Lys1 de la RNasa, que sí está en 2B. Están lejos de la interfaz y su efecto en la descomposición es ~0.1 kcal/mol, pero es una diferencia entre sistemas no debida a la maduración.
 - **Descomposición:** con GB la suma por residuo no es exactamente igual al ΔΔG global (−1.88 vs −2.22), y los términos EEL/GB por residuo son grandes y opuestos; se interpreta solo su suma.
 
 ### Mejoras posibles
-Réplicas (3+) por sistema; producción más larga; repetir con `igb=5` o PB para ver si el signo se mantiene; estimar la entropía (interaction entropy o C2).
+Más réplicas con estructuras de partida distintas; producción más larga (≥10 ns); repetir con `igb=5` o PB para ver si el signo se mantiene; estimar la entropía (interaction entropy o C2).
 
 ## Nota sobre el notebook
 La primera versión del notebook mezclaba en la descomposición el residuo N del nanobody con el residuo N de la RNasa: gmx_MMPBSA etiqueta `R::TYR:101` / `L::GLN:101` sin cadena. El parser ya está corregido (R = nanobody, L = RNasa) y todo el análisis de este documento sale de `scripts/analisis_energia.py`.

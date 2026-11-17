@@ -4,15 +4,15 @@ Nanobody cAb-RN05 contra RNasa A. KD 23 nM → 0.15 nM; ΔΔGexp = −2.98 kcal/
 Detalle y datos: [A](A_inspeccion/A_inspeccion_inicial.md) · [B](B_dinamica/B_dinamica_molecular.md) · [C](C_analisis/C_analisis_estructural.md) · [D–F](D_F_energia/D_F_energia_libre.md).
 
 ## Resumen
-Las dos estructuras son casi iguales (0.99 Å global), pero 9 mutaciones en CDR1 y CDR3 reorganizan la interfaz. MM/GBSA reproduce el signo y el orden de magnitud del cambio de afinidad (ΔΔGcalc = −2.22 ± 0.99 kcal/mol). La ganancia no viene de las mutaciones sumadas (+6 kcal/mol, desfavorables) sino de residuos vecinos no mutados: la mejora es cooperativa.
+Las dos estructuras son casi iguales (0.99 Å global), pero 9 mutaciones en CDR1 y CDR3 reorganizan la interfaz. Con una sola trayectoria MM/GBSA daba ΔΔG = −2.22 kcal/mol, cercano al experimental (−2.98). Con 3 réplicas por sistema el resultado es **ΔΔG = +1.4 ± 4.5**: la variabilidad entre réplicas supera la diferencia, así que **el método (GB, 1 ns, sin entropía) no reproduce de forma fiable la mejora de afinidad**. Sí son reproducibles cambios locales: se pierde el hotspot Tyr101 (+6.5), gana Arg107 (−2.7) y gana Gln69 de la RNasa (−2.0).
 
 ## Respuestas
-1. **Modificaciones.** 9 mutaciones, todas en CDR1 (A28P, Y29W) y CDR3 (Y101D, E102A, R104V, D105A, R106T, T107R, Q110R). En contacto directo con el antígeno en 2B: Y29W, Y101D, R106T, T107R, Q110R. R104V elimina un contacto de 2A. A28P, E102A y D105A no tocan el antígeno (efecto indirecto).
+1. **Modificaciones.** 9 mutaciones, todas en CDR1 (A28P, Y29W) y CDR3 (Y101D, E102A, R104V, D105A, R106T, T107R, Q110R). En contacto directo en 2B: Y29W, Y101D, R106T, T107R, Q110R. R104V elimina un contacto de 2A. A28P, E102A y D105A no tocan el antígeno (efecto indirecto).
 2. **Similitud real.** Cada cadena conserva su forma, pero el nanobody se desplaza 2.1 Å respecto a la RNasa en el cristal y 2.6 Å en MD, del orden de su oscilación propia. La interfaz conserva su tamaño y cambia de composición (entran Arg110 y Thr30, sale Arg104).
-3. **Origen de la mejora.** Hay diferencia energética: ΔΔG = −2.22 kcal/mol, con ~−1.3 de balance electrostático/solvatación (menor penalización de desolvatación polar) y ~−0.9 de vdW; el no polar no cambia. La electrostática directa por sí sola empeora un poco.
-4. **¿Individual o cooperativo?** Cooperativo. Las 9 posiciones mutadas suman +5.95 kcal/mol (Tyr101→Asp +6.8, Arg106→Thr +2.5; Thr107→Arg −2.4). La ganancia está en residuos no mutados del nanobody (Gly99, Gly100, Tyr27, Tyr33: −5.4) y de la RNasa (Gln69, Lys61, Tyr73: −2.5 neto).
-5. **Mapa energético.** Cambió. Hotspots en 2A: Tyr101, Tyr115, Ile32, Glu111, Arg106. En 2B: Arg107, Ile32, Thr70, Gln69, Tyr115. Tyr115 y Glu111 de la RNasa pierden peso, lo que coincide con su debilitamiento en la MD (parte C).
-6. **Acuerdo con el experimento.** Signo correcto y magnitud cercana (−2.2 vs −3.0), con origen coherente. Cautela: una réplica de 1 ns, el SEM subestima el error real, MM/GBSA sin entropía (los ΔG absolutos ≈ −50 no son comparables) y 2A conserva 2 residuos de etiqueta que 2B no tiene.
+3. **Origen de la mejora.** No queda demostrado con este modelo: ΔΔG(3 réplicas) = +1.4 ± 4.5 (r1 sola: −2.2). Lo reproducible es un cambio local de la interfaz, no del tamaño (el término no polar no cambia) ni de la geometría global.
+4. **¿Individual o cooperativo?** Las 9 posiciones mutadas suman +3.8 kcal/mol (desfavorables), con Tyr101→Asp (+6.5) y Arg106→Thr (+1.3) perdidos y Thr107→Arg (−2.7) ganado; la RNasa suma −1.9 (Gln69 −2.0). El efecto cooperativo en residuos no mutados del nanobody que mostraba r1 no se reproduce, por lo que no se puede afirmar con estos datos.
+5. **Mapa energético.** Cambia en lo local: 2A se apoya en Tyr101, 2B en Arg107 y en Gln69 de la RNasa. Los cambios de Tyr115 y Glu111 (vistos en r1 y en la parte C) quedan dentro del ruido entre réplicas.
+6. **Acuerdo con el experimento.** Con una réplica parecía bueno (−2.2 vs −3.0); con tres no hay acuerdo concluyente (+1.4 ± 4.5; 5 de 9 combinaciones con signo correcto). Falta entropía, muestreo (réplicas con estructuras distintas, más de 1 ns) y quizá otro modelo de solvatación (PB). La variabilidad en EEL y GB (±10 kcal/mol, compensados entre sí) es la principal fuente de ruido.
 
 ## Limitaciones y mejoras
-Réplicas independientes, trayectorias más largas, comparación con PB o `igb=5`, y estimación de entropía.
+Más réplicas con estructuras de partida distintas, trayectorias más largas (≥10 ns), comparación con PB o `igb=5`, y estimación de entropía.

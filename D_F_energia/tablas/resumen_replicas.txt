@@ -1,0 +1,42 @@
+=== ΔG por réplica (kcal/mol) ===
+sis  rep  VDWAALS    EEL   EGB  ESURF  TOTAL
+ 2A    1   -69.48 -65.55 93.54  -8.62 -50.11
+ 2A    2   -72.70 -54.68 78.97  -8.68 -57.10
+ 2A    3   -65.09 -64.82 94.29  -8.39 -44.01
+ 2B    1   -70.40 -64.81 91.52  -8.64 -52.33
+ 2B    2   -75.42 -48.10 82.00  -8.80 -50.32
+ 2B    3   -69.43 -43.31 76.71  -8.44 -44.46
+
+=== Media ± SD entre réplicas ===
+2A: VDWAALS -69.09±3.82  EEL -61.68±6.07  EGB 88.93±8.64  ESURF -8.56±0.16  TOTAL -50.40±6.55
+2B: VDWAALS -71.75±3.22  EEL -52.07±11.29  EGB 83.41±7.51  ESURF -8.63±0.18  TOTAL -49.04±4.09
+
+=== ΔΔG = 2B − 2A (kcal/mol), media ± SD de todas las combinaciones de réplicas ===
+VDWAALS  -2.66 ± 4.32
+EEL      +9.61 ± 11.10
+EGB      -5.52 ± 9.91
+ESURF    -0.06 ± 0.21
+TOTAL    +1.36 ± 6.69
+
+ΔΔG_calc = +1.36 ± 4.46 (error estándar entre réplicas)   ΔΔG_exp = -2.98
+Réplicas con ΔΔG negativo (2B−2A, combinaciones): 5 de 9
+
+=== Top 15 |ΔΔG_i| promediado entre réplicas (significativo = |ΔΔG_i| > 2·error entre réplicas) ===
+cadena  num res_2A res_2B  dG_2A  dG_2B   ddG  ddG_se  significativo
+    NB  101    TYR    ASP  -5.21   1.27  6.48    0.14           True
+    NB  107    THR    ARG  -2.51  -5.22 -2.71    1.29           True
+ RNasa   69    GLN    GLN  -1.73  -3.77 -2.04    0.08           True
+    NB  106    ARG    THR  -2.85  -1.52  1.33    0.49           True
+    NB  100    GLY    GLY  -1.90  -2.96 -1.06    0.55          False
+ RNasa   73    TYR    TYR  -1.33  -0.36  0.98    0.70          False
+    NB   29    TYR    TRP  -2.55  -3.27 -0.72    0.36           True
+    NB   27    TYR    TYR  -1.75  -1.06  0.68    0.63          False
+ RNasa   62    ASN    ASN  -3.13  -2.47  0.66    0.31           True
+ RNasa   61    LYS    LYS  -0.93  -1.48 -0.55    0.34          False
+    NB   33    TYR    TYR  -1.03  -1.54 -0.51    0.11           True
+ RNasa   71    ASN    ASN  -2.75  -2.26  0.49    0.28          False
+ RNasa   70    THR    THR  -3.65  -4.11 -0.46    0.22           True
+    NB  105    ASP    ALA   0.50   0.08 -0.42    0.09           True
+ RNasa   60    GLN    GLN   0.38  -0.02 -0.39    0.15           True
+
+ΣΔΔG_i mutados: +3.76 | NB no mutado: -0.22 | RNasa: -1.89
