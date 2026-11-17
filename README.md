@@ -13,7 +13,7 @@ System_2A = inicial (KD 23 nM) · System_2B = madurada (KD 0.15 nM) · ΔΔGexp 
 | [B_dinamica/](B_dinamica/B_dinamica_molecular.md) | MD en GROMACS (2A y 2B) | 1 |
 | [C_analisis/](C_analisis/C_analisis_estructural.md) | RMSD, contactos en el tiempo, entorno de las mutaciones | 1 |
 | [D_F_energia/](D_F_energia/D_F_energia_libre.md) | gmx_MMPBSA, componentes, descomposición | 2 |
-| [scripts/](scripts/) | `graficar_xvg.py`: grafica archivos .xvg (uno o varios juntos) | — |
+| [scripts/](scripts/) | `graficar_xvg.py`: grafica .xvg · `analisis_energia.py`: componentes y descomposición de gmx_MMPBSA | — |
 | [referencia_clase_gromacs/](referencia_clase_gromacs/) | Ejercicio guiado de clase (plantilla del protocolo) | — |
 
 Cada parte tiene un documento `.md` con su letra y tema (por ejemplo `A_inspeccion_inicial.md`), con lo que se hizo, los comandos usados, los resultados y su interpretación.
@@ -24,10 +24,12 @@ Cada parte tiene un documento `.md` con su letra y tema (por ejemplo `A_inspecci
 | A. Inspección | Completa |
 | B. MD de 2A y 2B | Completa (Colab, A100); resultados en `B_dinamica/2A_colab/` y `2B_colab/` |
 | C. Análisis estructural | Completa |
-| D–F. Energía | Segunda entrega |
+| D–F. Energía | Completa (gmx_MMPBSA en Colab; análisis con `scripts/analisis_energia.py`) |
 
 ## Hallazgos hasta ahora
 - 9 mutaciones, todas en CDR1 y CDR3; el antígeno es igual en los dos sistemas.
 - El nanobody está desplazado respecto a la RNasa entre variantes: 2.1 Å en cristales y 2.6 Å en MD, en el orden de su oscilación propia.
 - La interfaz conserva su tamaño pero cambia de composición: Arg110 y Thr30 entran, Arg104 sale.
 - En MD 2B tiene ~1 puente de H más (6.2 → 7.2), pero con pérdidas parciales: el puente salino con Glu111 y el enlace con Tyr115 son menos estables.
+- MM/GBSA: ΔΔGcalc = −2.22 ± 0.99 kcal/mol frente a ΔΔGexp = −2.98 (signo correcto, magnitud similar). La mejora viene de menor desolvatación polar y algo de vdW.
+- Las 9 mutaciones suman +6 kcal/mol (pierden Tyr101 y Arg106); la ganancia está en residuos no mutados (Gly99, Gly100, Tyr27 del nanobody; Gln69, Lys61 de la RNasa): efecto cooperativo.

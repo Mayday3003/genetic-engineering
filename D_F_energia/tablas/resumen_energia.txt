@@ -1,0 +1,59 @@
+=== D y E. Componentes (kcal/mol; ± = SEM por bloques, 5 bloques) ===
+            termino   dG_2A  sem_2A   dG_2B  sem_2B   ddG  ddG_sem
+             ΔE vdW  -69.48    0.85  -70.40    0.40 -0.92     0.94
+  ΔE electrostática  -65.55    2.94  -64.81    4.05  0.74     5.01
+ΔG solv. polar (GB)   93.54    3.17   91.52    3.62 -2.01     4.82
+  ΔG solv. no polar   -8.62    0.09   -8.64    0.07 -0.02     0.12
+             ΔG gas -135.03    3.33 -135.21    3.83 -0.19     5.07
+            ΔG solv   84.92    3.11   82.88    3.56 -2.04     4.73
+           ΔG unión  -50.11    0.48  -52.33    0.87 -2.22     0.99
+
+ΔΔG_calc = -2.22 ± 0.99 kcal/mol   ΔΔG_exp = -2.98
+ΔΔ(EEL + EGB) = -1.28 kcal/mol
+
+=== F. Posiciones mutadas ===
+cadena  num res_2A res_2B  dG_2A  dG_2B   ddG  ddG_sem  dd_vdW  dd_Ele  dd_Polar
+    NB   28    ALA    PRO  -0.03  -0.14 -0.11     0.01   -0.03   -0.32      0.22
+    NB   29    TYR    TRP  -2.49  -2.69 -0.20     0.13   -0.83    3.54     -2.70
+    NB  101    TYR    ASP  -5.36   1.43  6.79     0.22    1.27  -21.96     27.39
+    NB  102    GLU    ALA   0.12   0.01 -0.10     0.02    0.02   10.92    -11.05
+    NB  104    ARG    VAL  -0.10  -0.08  0.02     0.06    0.27  -10.71     10.42
+    NB  105    ASP    ALA   0.66   0.08 -0.59     0.05    0.05    9.65    -10.28
+    NB  106    ARG    THR  -3.66  -1.12  2.54     0.42    0.54    4.04     -2.29
+    NB  107    THR    ARG  -3.23  -5.64 -2.42     0.37   -1.53    4.89     -5.63
+    NB  110    GLN    ARG  -0.21  -0.19  0.02     0.08   -0.94    0.04      1.23
+
+=== F. Top 20 |ΔΔG_i| ===
+cadena  num res_2A res_2B  dG_2A  dG_2B   ddG  ddG_sem  dd_vdW  dd_Ele  dd_Polar    categoria
+    NB  101    TYR    ASP  -5.36   1.43  6.79     0.22    1.27  -21.96     27.39       Mutado
+    NB  106    ARG    THR  -3.66  -1.12  2.54     0.42    0.54    4.04     -2.29       Mutado
+    NB  107    THR    ARG  -3.23  -5.64 -2.42     0.37   -1.53    4.89     -5.63       Mutado
+    NB   99    GLY    GLY   0.13  -2.15 -2.28     0.30    1.02   -2.03     -1.33 NB no mutado
+ RNasa   69    GLN    GLN  -1.78  -3.83 -2.05     0.15    0.69   -8.93      6.22        RNasa
+ RNasa  115    TYR    TYR  -5.15  -3.24  1.91     0.15   -0.99    4.14     -1.24        RNasa
+    NB  100    GLY    GLY  -1.01  -2.83 -1.82     0.11   -0.22   -1.80      0.27 NB no mutado
+ RNasa   61    LYS    LYS  -0.61  -2.00 -1.39     0.09   -0.59    6.14     -6.85        RNasa
+ RNasa  111    GLU    GLU  -4.21  -3.02  1.19     0.31   -0.48    8.52     -6.85        RNasa
+ RNasa   71    ASN    ASN  -3.12  -2.05  1.07     0.06    0.12    3.43     -2.52        RNasa
+    NB   27    TYR    TYR  -1.32  -2.21 -0.89     0.11    0.23   -0.56     -0.66 NB no mutado
+ RNasa   73    TYR    TYR  -0.46  -1.22 -0.76     0.30    0.47   -1.25     -0.05        RNasa
+    NB   33    TYR    TYR  -0.84  -1.58 -0.74     0.05   -0.58    0.11     -0.21 NB no mutado
+ RNasa   70    THR    THR  -3.40  -4.01 -0.60     0.14    0.21   -1.22      0.37        RNasa
+    NB  105    ASP    ALA   0.66   0.08 -0.59     0.05    0.05    9.65    -10.28       Mutado
+ RNasa   58    CYS    CYS   0.04  -0.46 -0.50     0.18   -0.14   -2.42      2.11        RNasa
+ RNasa   60    GLN    GLN   0.64   0.14 -0.50     0.05   -0.33   -0.57      0.47        RNasa
+    NB  109    GLY    GLY  -1.34  -0.85  0.49     0.08   -0.02    1.89     -1.50 NB no mutado
+ RNasa   59    SER    SER  -0.40  -0.85 -0.45     0.14   -0.40   -2.82      2.87        RNasa
+ RNasa   72    CYS    CYS  -0.04  -0.42 -0.39     0.02   -0.02   -0.66      0.29        RNasa
+
+=== F. Suma de ΔΔG_i por región ===
+Mutado         +5.95 kcal/mol
+NB no mutado   -5.38 kcal/mol
+RNasa          -2.45 kcal/mol
+Total          -1.88 kcal/mol (la descomposición no suma exactamente el ΔΔG global)
+
+Hotspots 2A: NB:TYR101 (-5.4), RNasa:TYR115 (-5.2), NB:ILE32 (-4.8), RNasa:GLU111 (-4.2), NB:ARG106 (-3.7), RNasa:THR70 (-3.4), NB:THR107 (-3.2), RNasa:ASN71 (-3.1), RNasa:ASN62 (-3.0), NB:TYR29 (-2.5)
+
+Hotspots 2B: NB:ARG107 (-5.6), NB:ILE32 (-5.1), RNasa:THR70 (-4.0), RNasa:GLN69 (-3.8), RNasa:TYR115 (-3.2), RNasa:GLU111 (-3.0), RNasa:ASN62 (-3.0), NB:GLY100 (-2.8), NB:TRP29 (-2.7), NB:TYR27 (-2.2)
+
+Residuos presentes en un solo sistema: NB:GLY-1, NB:SER0, RNasa:LYS1
