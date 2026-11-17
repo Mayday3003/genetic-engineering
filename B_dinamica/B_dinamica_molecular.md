@@ -131,6 +131,7 @@ Los ± de presión son el error estimado por `gmx energy`. Las fluctuaciones ins
 
 ### Figuras
 - `figuras/`: gráficas B5–B7 de la corrida local de prueba de 2A.
+- `../C_analisis/figuras/B5_potencial_2A_vs_2B.png`: energía potencial durante la minimización, 2A vs 2B.
 - `../C_analisis/figuras/B8_*`: temperatura y densidad de producción, 2A vs 2B.
 - Datos de todas las etapas de Colab: `../C_analisis/datos/<sistema>/`.
 

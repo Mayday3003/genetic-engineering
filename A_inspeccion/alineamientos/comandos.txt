@@ -1,0 +1,1 @@
+align mut and chain B and name CA, wt and chain B and name CA, cycles=0

@@ -9,6 +9,9 @@ Opciones:
     --etiquetas 2A 2B  nombre de cada curva en la leyenda (en el mismo orden)
     --desde 5          ignora los puntos con x < 5 (útil en minimización)
     --ymin / --ymax    límites del eje y
+    --titulo, --xlabel, --ylabel   reemplazan los textos del .xvg
+    --sin-promedio     no muestra el promedio en la leyenda
+    --leyenda-abajo    pone la leyenda debajo de la gráfica, sin tapar datos
 """
 import argparse
 import re
@@ -44,6 +47,11 @@ def main():
     p.add_argument("--desde", type=float)
     p.add_argument("--ymin", type=float)
     p.add_argument("--ymax", type=float)
+    p.add_argument("--titulo")
+    p.add_argument("--xlabel")
+    p.add_argument("--ylabel")
+    p.add_argument("--sin-promedio", action="store_true")
+    p.add_argument("--leyenda-abajo", action="store_true")
     a = p.parse_args()
 
     etiquetas = a.etiquetas or a.archivos
@@ -52,16 +60,19 @@ def main():
         x, y, xlab, ylab, titulo = leer_xvg(ruta)
         if a.desde is not None:
             x, y = x[x >= a.desde], y[x >= a.desde]
-        plt.plot(x, y, lw=1, label=f"{etiqueta} (prom. {y.mean():.4g})")
+        plt.plot(x, y, lw=1, label=etiqueta if a.sin_promedio else f"{etiqueta} (prom. {y.mean():.4g})")
 
-    plt.xlabel(xlab)
-    plt.ylabel(ylab)
-    plt.title(titulo)
+    plt.xlabel(a.xlabel or xlab)
+    plt.ylabel(a.ylabel or ylab)
+    plt.title(a.titulo or titulo)
     plt.ylim(a.ymin, a.ymax)
-    plt.legend()
+    if a.leyenda_abajo:
+        plt.legend(loc="upper center", bbox_to_anchor=(0.5, -0.16), ncol=len(a.archivos), frameon=False)
+    else:
+        plt.legend()
     plt.tight_layout()
     if a.salida:
-        plt.savefig(a.salida, dpi=300)
+        plt.savefig(a.salida, dpi=300, bbox_inches="tight")
         print("Figura guardada en", a.salida)
     else:
         plt.show()
