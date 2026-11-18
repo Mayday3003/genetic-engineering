@@ -34,7 +34,23 @@ bash scripts/preparar_entorno.sh
 
 Después, los scripts de Python se corren con `.venv/bin/python` en vez de `python3`.
 
-Para abrir imágenes desde la terminal: `xdg-open ruta/imagen.png`.
+Para abrir imágenes desde la terminal: `xdg-open ruta/imagen.png` (o `display ruta/imagen.png`).
+
+**Herramientas de visualización instaladas** y para qué se usa cada una:
+
+| Herramienta | Para qué | Cómo se abre |
+|---|---|---|
+| **PyMOL** | Ver estructuras 3D, mutaciones, contactos, películas | `pymol visualizar/<script>.pml` |
+| **VMD** | Ver la trayectoria (película) de la MD | `vmd -e visualizar/<script>.tcl` |
+| **xmgrace** | Ver las curvas `.xvg` (RMSD, temperatura, etc.) | `xmgrace archivo.xvg` |
+| **xdg-open** | Ver las figuras `.png` | `xdg-open figura.png` |
+
+Los scripts de `visualizar/` ya dejan todo coloreado y listo. **Siempre desde la raíz del proyecto.** Dentro de PyMOL puedes pegar comandos en la línea de abajo; el panel de la derecha activa/desactiva objetos (clic en el nombre).
+
+Antes de ver las películas (partes B y C) corre **una sola vez**:
+```bash
+bash visualizar/preparar_trayectoria.sh
+```
 
 ---
 
@@ -129,6 +145,7 @@ Una **mutación** como **Y101D** se lee "la Tyr de la posición 101 se cambió p
 | `C_analisis/` | Datos `.xvg`, figuras 2A vs 2B, informe | Parte C |
 | `D_F_energia/` | Notebooks, resultados, tablas, figuras, informe, `replicas/` | Partes D–F y réplicas |
 | `scripts/` | Scripts de Python/bash para gráficas y análisis | Reproducir |
+| `visualizar/` | Scripts de PyMOL (`.pml`) y VMD (`.tcl`) listos para abrir | Ver estructuras y películas |
 | `INFORME_FINAL.md` | Resumen y respuestas a las 6 preguntas | Entregable principal |
 | `GUIA_COMPLETA.md` | Esta guía | Estudiar |
 
@@ -156,16 +173,31 @@ xdg-open A_inspeccion/figuras/A3_superposicion.png
 less A_inspeccion/A_inspeccion_inicial.md
 ```
 
-### Verlo en 3D con PyMOL
+### Visualizar en 3D
 ```bash
+# 1) Las 9 mutaciones sobre las estructuras superpuestas (gris = 2A, cian = 2B, naranja/rojo = mutaciones)
+pymol visualizar/A_mutaciones.pml
+
+# 2) La interfaz y los contactos polares (rojo = contactos en 2B, amarillo = en 2A)
+pymol visualizar/A_interfaz_contactos.pml
+
+# 3) Lo mismo en VMD (imprime el RMSD de la superposición: 0.64 Å)
+vmd -e visualizar/A_mutaciones.tcl
+
+# 4) La sesión de PyMOL que ya hicieron antes
 pymol A_inspeccion/sesiones/A_inspeccion_2A_vs_2B.pse
 ```
-O desde cero, en la consola de PyMOL:
+**Qué mirar:** en (1) las mutaciones están todas en los lazos que apuntan a la RNasa (verde). En (2) activa y desactiva `contactos_2A` / `interfaz_2A` en el panel derecho para ver qué contactos aparecen o desaparecen en 2B.
+
+**Comandos útiles dentro de PyMOL** (los escribes en la línea de comandos de abajo):
 ```
-load 01_estructuras/System_2A.pdb, wt
-load 01_estructuras/System_2B.pdb, mut
-align mut and chain B and name CA, wt and chain B and name CA, cycles=0
+select CDR3, mut and chain B and resi 99-112     # selecciona el lazo CDR3 de 2B
+show sticks, CDR3                                # lo muestra con bastones
+zoom CDR3                                        # acerca la cámara
+label mut and chain B and resi 101 and name CA, "Asp101"
+distance d1, mut and chain B and resi 107 and name NH1, mut and chain A and resi 111 and name OE1
 ```
+(la última mide la distancia del puente salino Arg107–Glu111).
 
 ### Qué significan los resultados
 - **9 mutaciones**, todas en CDR (2 en CDR1: A28P, Y29W; 7 en CDR3: Y101D, E102A, R104V, D105A, R106T, T107R, Q110R). Ninguna en el esqueleto.
@@ -203,12 +235,22 @@ xdg-open C_analisis/figuras/B8_densidad_2A_vs_2B.png
 less B_dinamica/B_dinamica_molecular.md
 ```
 
-### Ver la película en PyMOL
+### Ver las curvas de verificación (xmgrace)
 ```bash
-echo 0 | gmx trjconv -s B_dinamica/2A_colab/proteina.tpr -f B_dinamica/2A_colab/proteina.xtc -dump 0 -o /tmp/inicio_2A.pdb
-pymol
+# Temperatura y densidad de la producción de 2A y 2B en la misma ventana (cada archivo es una curva)
+xmgrace C_analisis/datos/2A/B8_temperatura.xvg C_analisis/datos/2B/B8_temperatura.xvg
+xmgrace C_analisis/datos/2A/B8_densidad.xvg C_analisis/datos/2B/B8_densidad.xvg
+xmgrace C_analisis/datos/2A/B5_potencial.xvg C_analisis/datos/2B/B5_potencial.xvg   # minimización
 ```
-En PyMOL: `load /tmp/inicio_2A.pdb, sim` y luego `load_traj B_dinamica/2A_colab/proteina.xtc, sim`. Usa los botones de reproducción abajo a la derecha.
+Esperado: la temperatura oscila alrededor de 298 K y la densidad alrededor de 994 kg/m³, sin tendencias. En xmgrace: clic derecho en la gráfica → *Autoscale* si no ves la curva.
+
+### Ver la película (la simulación)
+```bash
+bash visualizar/preparar_trayectoria.sh     # solo la primera vez
+pymol visualizar/C_trayectoria.pml          # 2A a la izquierda (gris), 2B a la derecha (cian); botón ▶ abajo a la derecha
+vmd -e visualizar/C_trayectoria.tcl         # lo mismo en VMD (ventana principal: barra de animación)
+```
+**Qué mirar:** que las proteínas se muevan un poco pero no se separen, y las mutaciones (rojo) en la interfaz. En PyMOL, `frame 1`, `frame 500` y `frame 1001` saltan al inicio, medio y final. Cada cuadro = 1 ps.
 
 ### Qué significan los resultados (lo que el profe pide verificar)
 | Verificación | Resultado | Lectura |
@@ -244,6 +286,26 @@ xdg-open C_analisis/figuras/C3_puentes_H_2A_vs_2B.png
 xdg-open C_analisis/figuras/C4_salino_Arg_Glu111_2A_vs_2B.png
 xdg-open C_analisis/figuras/C4_Tyr27_Gln60_2A_vs_2B.png
 ```
+
+### Ver las curvas con xmgrace (comparar 2A y 2B en la misma ventana)
+```bash
+xmgrace C_analisis/datos/2A/C2_rmsd_complejo.xvg C_analisis/datos/2B/C2_rmsd_complejo.xvg
+xmgrace C_analisis/datos/2A/C2_rmsd_nanobody.xvg C_analisis/datos/2B/C2_rmsd_nanobody.xvg
+xmgrace C_analisis/datos/2A/C3_puentes_H.xvg C_analisis/datos/2B/C3_puentes_H.xvg
+xmgrace C_analisis/datos/2A/C4_salino_Arg_Glu111.xvg C_analisis/datos/2B/C4_salino_Arg_Glu111.xvg
+```
+Las figuras en `.png` (`C_analisis/figuras/`) son estas mismas curvas ya con títulos en español.
+
+### Ver los contactos en la película
+```bash
+pymol visualizar/C_trayectoria.pml      # 3D: las mutaciones en rojo se mueven con la interfaz
+```
+Dentro de PyMOL, para ver el puente salino en un cuadro cualquiera (2B):
+```
+frame 500
+distance salino, sim2B and chain B and resi 107 and name NH1+NH2, sim2B and chain A and resi 111 and name OE1+OE2
+```
+Mide a lo largo del tiempo moviendo el cuadro (`frame 1`, `frame 300`, `frame 800`): verás que la distancia varía más en 2B (ocupación 78 % vs 96 % en 2A).
 
 ### Recalcular un número a mano (para entender de dónde sale)
 ```bash
@@ -293,6 +355,15 @@ xdg-open D_F_energia/figuras/F_top_ddg_residuo.png
 xdg-open D_F_energia/figuras/F_mapa_interfaz.png
 ```
 
+### Ver la energía sobre la estructura 3D (PyMOL)
+```bash
+python3 visualizar/generar_F_energia.py       # solo si cambiaron los datos; ya está generado
+pymol visualizar/F_energia_bfactor.pml
+```
+Colorea **2B** según ΔΔG_i (promedio de 3 réplicas): **azul = el residuo contribuye más a la unión en 2B, rojo = contribuye menos**, blanco = sin cambio. Etiqueta los residuos con cambio significativo (Tyr101→Asp en rojo, Arg107 en azul, Gln69 de la RNasa en azul). Es la forma más clara de mostrar al profe "dónde cambió la energía".
+
+Para solo ver la interfaz dentro de PyMOL: `hide cartoon, not (byres chain B within 8 of chain A)`.
+
 ### Recalcular todo desde los datos crudos
 ```bash
 .venv/bin/python scripts/analisis_energia.py
@@ -341,6 +412,7 @@ Electrostática y solvatación se **compensan** (son grandes y de signo opuesto)
 cat D_F_energia/tablas/resumen_replicas.txt
 xdg-open D_F_energia/figuras/D_replicas_dG.png
 less D_F_energia/replicas/LEEME.md          # cómo se hicieron
+pymol visualizar/F_energia_bfactor.pml      # mapa de ΔΔG_i por residuo (media de las 3 réplicas)
 ```
 
 ### Recalcular
@@ -408,7 +480,11 @@ xdg-open C_analisis/figuras/C2_rmsd_complejo_2A_vs_2B.png
 xdg-open D_F_energia/figuras/D_componentes_ddg.png
 xdg-open D_F_energia/figuras/D_replicas_dG.png
 xdg-open D_F_energia/figuras/F_mapa_interfaz.png
-pymol A_inspeccion/sesiones/A_inspeccion_2A_vs_2B.pse
+pymol visualizar/A_mutaciones.pml
+pymol visualizar/A_interfaz_contactos.pml
+pymol visualizar/F_energia_bfactor.pml
+vmd -e visualizar/C_trayectoria.tcl          # película (tras preparar_trayectoria.sh)
+xmgrace C_analisis/datos/2A/C2_rmsd_complejo.xvg C_analisis/datos/2B/C2_rmsd_complejo.xvg
 less INFORME_FINAL.md
 ```
 
@@ -427,6 +503,9 @@ less INFORME_FINAL.md
 | `ModuleNotFoundError: pandas` | `bash scripts/preparar_entorno.sh` y usa `.venv/bin/python` |
 | `xdg-open` no abre nada | Abre la imagen desde el explorador de archivos |
 | `gmx: command not found` | GROMACS está en `/usr/bin/gmx`; abre una terminal nueva |
-| PyMOL no carga el `.pse` | Abre PyMOL y `load 01_estructuras/System_2A.pdb` manualmente |
+| PyMOL no carga el `.pse` | Usa `pymol visualizar/A_mutaciones.pml` o `load 01_estructuras/System_2A.pdb` a mano |
+| `C_trayectoria.pml` dice que no encuentra `visualizar/tmp/...` | Corre `bash visualizar/preparar_trayectoria.sh` desde la raíz |
+| PyMOL muestra todo en blanco/negro | Escribe `bg_color white` y `orient` |
+| xmgrace no ve la curva | Clic derecho → Autoscale, o `Plot > Autoscale` |
 | Un `.xvg` no abre | Es texto: `grep -v '^[#@]' archivo.xvg | head` |
 | Quiero volver a correr simulaciones | Colab: `B_dinamica/colab/Como_usar_Colab.md` y `D_F_energia/replicas/LEEME.md` |
