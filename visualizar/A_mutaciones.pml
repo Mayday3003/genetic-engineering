@@ -1,5 +1,5 @@
 # Parte A: superposición de 2A y 2B y localización de las 9 mutaciones.
-# Uso (desde la raíz del proyecto):  pymol visualizar/A_mutaciones.pml
+# Uso (desde la raíz):  bash visualizar/pymol.sh visualizar/A_mutaciones.pml
 # Colores: antígeno (RNasa) verde pálido, nanobody 2A gris, nanobody 2B cian, mutaciones: 2A naranja, 2B rojo.
 reinitialize
 load 01_estructuras/System_2A.pdb, wt

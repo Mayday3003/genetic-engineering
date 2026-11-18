@@ -1,5 +1,5 @@
 # Parte F: ΔΔG por residuo sobre la estructura de 2B (generado por generar_F_energia.py)
-# Uso:  pymol visualizar/F_energia_bfactor.pml
+# Uso (desde la raíz):  bash visualizar/pymol.sh visualizar/F_energia_bfactor.pml
 reinitialize
 load 01_estructuras/System_2B.pdb, mut
 bg_color white

@@ -40,12 +40,14 @@ Para abrir imágenes desde la terminal: `xdg-open ruta/imagen.png` (o `display r
 
 | Herramienta | Para qué | Cómo se abre |
 |---|---|---|
-| **PyMOL** | Ver estructuras 3D, mutaciones, contactos, películas | `pymol visualizar/<script>.pml` |
+| **PyMOL** | Ver estructuras 3D, mutaciones, contactos, películas | `bash visualizar/pymol.sh visualizar/<script>.pml` |
 | **VMD** | Ver la trayectoria (película) de la MD | `vmd -e visualizar/<script>.tcl` |
 | **xmgrace** | Ver las curvas `.xvg` (RMSD, temperatura, etc.) | `xmgrace archivo.xvg` |
 | **xdg-open** | Ver las figuras `.png` | `xdg-open figura.png` |
 
 Los scripts de `visualizar/` ya dejan todo coloreado y listo. **Siempre desde la raíz del proyecto.** Dentro de PyMOL puedes pegar comandos en la línea de abajo; el panel de la derecha activa/desactiva objetos (clic en el nombre).
+
+**Si instalaste PyMOL con Flatpak:** PyMOL corre en un sandbox que **no ve tus carpetas**, por eso los scripts fallaban con `Invalid selection name "wt"` (nunca cargó las estructuras). Por eso se abre siempre con `bash visualizar/pymol.sh ...`, que le da permiso solo a la carpeta del proyecto y funciona se instale como se instale. Para abrir PyMOL a mano con permiso: `flatpak run --filesystem=$PWD org.pymol.PyMOL`.
 
 Antes de ver las películas (partes B y C) corre **una sola vez**:
 ```bash
@@ -176,16 +178,16 @@ less A_inspeccion/A_inspeccion_inicial.md
 ### Visualizar en 3D
 ```bash
 # 1) Las 9 mutaciones sobre las estructuras superpuestas (gris = 2A, cian = 2B, naranja/rojo = mutaciones)
-pymol visualizar/A_mutaciones.pml
+bash visualizar/pymol.sh visualizar/A_mutaciones.pml
 
 # 2) La interfaz y los contactos polares (rojo = contactos en 2B, amarillo = en 2A)
-pymol visualizar/A_interfaz_contactos.pml
+bash visualizar/pymol.sh visualizar/A_interfaz_contactos.pml
 
 # 3) Lo mismo en VMD (imprime el RMSD de la superposición: 0.64 Å)
 vmd -e visualizar/A_mutaciones.tcl
 
 # 4) La sesión de PyMOL que ya hicieron antes
-pymol A_inspeccion/sesiones/A_inspeccion_2A_vs_2B.pse
+bash visualizar/pymol.sh A_inspeccion/sesiones/A_inspeccion_2A_vs_2B.pse
 ```
 **Qué mirar:** en (1) las mutaciones están todas en los lazos que apuntan a la RNasa (verde). En (2) activa y desactiva `contactos_2A` / `interfaz_2A` en el panel derecho para ver qué contactos aparecen o desaparecen en 2B.
 
@@ -247,7 +249,7 @@ Esperado: la temperatura oscila alrededor de 298 K y la densidad alrededor de 99
 ### Ver la película (la simulación)
 ```bash
 bash visualizar/preparar_trayectoria.sh     # solo la primera vez
-pymol visualizar/C_trayectoria.pml          # 2A a la izquierda (gris), 2B a la derecha (cian); botón ▶ abajo a la derecha
+bash visualizar/pymol.sh visualizar/C_trayectoria.pml          # 2A a la izquierda (gris), 2B a la derecha (cian); botón ▶ abajo a la derecha
 vmd -e visualizar/C_trayectoria.tcl         # lo mismo en VMD (ventana principal: barra de animación)
 ```
 **Qué mirar:** que las proteínas se muevan un poco pero no se separen, y las mutaciones (rojo) en la interfaz. En PyMOL, `frame 1`, `frame 500` y `frame 1001` saltan al inicio, medio y final. Cada cuadro = 1 ps.
@@ -298,7 +300,7 @@ Las figuras en `.png` (`C_analisis/figuras/`) son estas mismas curvas ya con tí
 
 ### Ver los contactos en la película
 ```bash
-pymol visualizar/C_trayectoria.pml      # 3D: las mutaciones en rojo se mueven con la interfaz
+bash visualizar/pymol.sh visualizar/C_trayectoria.pml      # 3D: las mutaciones en rojo se mueven con la interfaz
 ```
 Dentro de PyMOL, para ver el puente salino en un cuadro cualquiera (2B):
 ```
@@ -358,7 +360,7 @@ xdg-open D_F_energia/figuras/F_mapa_interfaz.png
 ### Ver la energía sobre la estructura 3D (PyMOL)
 ```bash
 python3 visualizar/generar_F_energia.py       # solo si cambiaron los datos; ya está generado
-pymol visualizar/F_energia_bfactor.pml
+bash visualizar/pymol.sh visualizar/F_energia_bfactor.pml
 ```
 Colorea **2B** según ΔΔG_i (promedio de 3 réplicas): **azul = el residuo contribuye más a la unión en 2B, rojo = contribuye menos**, blanco = sin cambio. Etiqueta los residuos con cambio significativo (Tyr101→Asp en rojo, Arg107 en azul, Gln69 de la RNasa en azul). Es la forma más clara de mostrar al profe "dónde cambió la energía".
 
@@ -412,7 +414,7 @@ Electrostática y solvatación se **compensan** (son grandes y de signo opuesto)
 cat D_F_energia/tablas/resumen_replicas.txt
 xdg-open D_F_energia/figuras/D_replicas_dG.png
 less D_F_energia/replicas/LEEME.md          # cómo se hicieron
-pymol visualizar/F_energia_bfactor.pml      # mapa de ΔΔG_i por residuo (media de las 3 réplicas)
+bash visualizar/pymol.sh visualizar/F_energia_bfactor.pml      # mapa de ΔΔG_i por residuo (media de las 3 réplicas)
 ```
 
 ### Recalcular
@@ -480,9 +482,9 @@ xdg-open C_analisis/figuras/C2_rmsd_complejo_2A_vs_2B.png
 xdg-open D_F_energia/figuras/D_componentes_ddg.png
 xdg-open D_F_energia/figuras/D_replicas_dG.png
 xdg-open D_F_energia/figuras/F_mapa_interfaz.png
-pymol visualizar/A_mutaciones.pml
-pymol visualizar/A_interfaz_contactos.pml
-pymol visualizar/F_energia_bfactor.pml
+bash visualizar/pymol.sh visualizar/A_mutaciones.pml
+bash visualizar/pymol.sh visualizar/A_interfaz_contactos.pml
+bash visualizar/pymol.sh visualizar/F_energia_bfactor.pml
 vmd -e visualizar/C_trayectoria.tcl          # película (tras preparar_trayectoria.sh)
 xmgrace C_analisis/datos/2A/C2_rmsd_complejo.xvg C_analisis/datos/2B/C2_rmsd_complejo.xvg
 less INFORME_FINAL.md
@@ -503,8 +505,9 @@ less INFORME_FINAL.md
 | `ModuleNotFoundError: pandas` | `bash scripts/preparar_entorno.sh` y usa `.venv/bin/python` |
 | `xdg-open` no abre nada | Abre la imagen desde el explorador de archivos |
 | `gmx: command not found` | GROMACS está en `/usr/bin/gmx`; abre una terminal nueva |
-| PyMOL no carga el `.pse` | Usa `pymol visualizar/A_mutaciones.pml` o `load 01_estructuras/System_2A.pdb` a mano |
+| PyMOL no carga el `.pse` | Usa `bash visualizar/pymol.sh visualizar/A_mutaciones.pml` o `load 01_estructuras/System_2A.pdb` a mano |
 | `C_trayectoria.pml` dice que no encuentra `visualizar/tmp/...` | Corre `bash visualizar/preparar_trayectoria.sh` desde la raíz |
+| `Invalid selection name "wt"` o `No such file` en PyMOL | Es el sandbox de Flatpak. Abre con `bash visualizar/pymol.sh visualizar/<script>.pml` |
 | PyMOL muestra todo en blanco/negro | Escribe `bg_color white` y `orient` |
 | xmgrace no ve la curva | Clic derecho → Autoscale, o `Plot > Autoscale` |
 | Un `.xvg` no abre | Es texto: `grep -v '^[#@]' archivo.xvg | head` |

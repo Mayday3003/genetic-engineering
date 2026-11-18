@@ -1,5 +1,5 @@
 # Parte A: interfaz nanobody–RNasa y contactos polares (puentes de H / salinos).
-# Uso:  pymol visualizar/A_interfaz_contactos.pml
+# Uso (desde la raíz):  bash visualizar/pymol.sh visualizar/A_interfaz_contactos.pml
 reinitialize
 load 01_estructuras/System_2A.pdb, wt
 load 01_estructuras/System_2B.pdb, mut

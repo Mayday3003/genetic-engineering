@@ -1,6 +1,6 @@
 # Parte B/C: película de 1 ns de 2A y 2B (proteína, PBC corregida).
 # Requiere antes:  bash visualizar/preparar_trayectoria.sh
-# Uso:  pymol visualizar/C_trayectoria.pml      (botones de play abajo a la derecha)
+# Uso (desde la raíz):  bash visualizar/pymol.sh visualizar/C_trayectoria.pml
 reinitialize
 load visualizar/tmp/2A_inicio.pdb, sim2A
 load_traj B_dinamica/2A_colab/proteina.xtc, sim2A
