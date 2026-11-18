@@ -101,3 +101,55 @@ Frase para presentar: *"La contribución no polar no cambia; la electrostática 
 1. En la gráfica 1, ¿qué significa que los puntos formen una línea descendente?
 2. ¿Por qué se interpreta la suma de electrostática y solvatación polar y no cada término por separado?
 3. ¿Qué cambia entre la réplica r1 sola y las tres réplicas en la parte polar, y qué enseña eso?
+
+---
+
+## 8. Profundización: de dónde salen los números y por qué se compensan
+
+### 8.1 Las tres restas
+Los números se obtienen con tres restas sucesivas, y en cada una el valor se hace mucho más pequeño, pero el ruido no se reduce en la misma proporción:
+
+| Nivel | Qué se resta | Orden de magnitud |
+|---|---|---|
+| 1. Energía de cada parte | Se calcula la energía del complejo, del nanobody solo y de la RNasa sola | Miles de kcal/mol (por ejemplo, EEL del complejo = −17 223) |
+| 2. Δ de un sistema | Complejo − nanobody − RNasa | Decenas (ΔEEL = −65.6) |
+| 3. ΔΔ entre sistemas | Δ(2B) − Δ(2A) | Unidades (ΔΔG ≈ 1 a 3) |
+
+### 8.2 Ejemplo con números reales (2A, réplica 1; `resultados_mmgbsa/2A/FINAL_RESULTS_MMPBSA.dat`)
+| Término | Complejo | Nanobody (receptor) | RNasa (ligando) | Δ = complejo − receptor − ligando |
+|---|---|---|---|---|
+| EEL | −17 223.10 | −8 444.93 | −8 712.62 | **−65.55** |
+| EGB | −3 034.19 | −1 427.65 | −1 700.08 | **+93.54** |
+
+Comprobación: −17 223.10 + 8 444.93 + 8 712.62 = −65.55; −3 034.19 + 1 427.65 + 1 700.08 = +93.54.
+
+### 8.3 Qué mide cada uno
+- **EEL (−65.55):** las fuerzas entre las cargas de las dos proteínas calculadas **como si no hubiera agua**. Sin agua, las cargas opuestas se atraen con mucha fuerza.
+- **EGB (+93.54):** la corrección por la presencia del agua. El agua debilita las fuerzas entre cargas (su constante dieléctrica es ≈ 80, es decir, las fuerzas se reducen unas 80 veces), así que EEL **exagera** la atracción. EGB resta esa exageración.
+- **La suma EEL + EGB = +27.99:** la interacción electrostática **en agua**. Es la cifra con sentido físico. Resulta positiva: en conjunto, enterrar los grupos polares y cargados en la interfaz cuesta más de lo que se gana.
+
+### 8.4 Por qué fluctúan de forma opuesta
+La recta de la gráfica 1 es **GB ≈ −0.80 × EEL + 40.7**, así que la suma es **EEL + GB ≈ 0.20 × EEL + 40.7**: la suma cambia solo 0.2 por cada unidad que cambia EEL. Dos instantáneas reales (2A, r1):
+
+| Instantánea | EEL | GB | Suma |
+|---|---|---|---|
+| 20 | −94.7 | +117.7 | **23.0** |
+| 78 | −31.3 | +68.3 | **37.0** |
+
+EEL cambia 63 kcal/mol y GB cambia 49 en sentido opuesto, pero la suma cambia solo 14.
+
+### 8.5 Ejercicio con las 6 corridas (kcal/mol)
+| Corrida | EEL | GB | EEL + GB |
+|---|---|---|---|
+| 2A r1 | −65.55 | 93.54 | 27.99 |
+| 2A r2 | −54.68 | 78.97 | 24.29 |
+| 2A r3 | −64.82 | 94.29 | 29.47 |
+| 2B r1 | −64.81 | 91.52 | 26.71 |
+| 2B r2 | −48.10 | 82.00 | 33.90 |
+| 2B r3 | −43.31 | 76.71 | 33.40 |
+
+Medias de la suma: 2A = 27.25, 2B = 31.34, diferencia **+4.09**. Observa que EEL varía entre −43 y −66 y GB entre 77 y 94 de una corrida a otra, pero la suma solo entre 24 y 34.
+
+### 8.6 Cómo leer una barra de error
+- Si la barra de error **cruza el cero**, los datos son compatibles con que no haya diferencia.
+- La suma EEL + GB es +4.1 ± 2.8: a ±1 error no cruza el cero (1.3 a 6.9), pero a ±2 errores sí (−1.5 a 9.6). **No es una diferencia significativa.** Y el signo es el contrario del que daba la réplica 1.
