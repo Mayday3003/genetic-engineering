@@ -1,6 +1,20 @@
 # Parte B/C: película de 1 ns de 2A y 2B (proteína, PBC corregida).
 # Requiere antes:  bash visualizar/preparar_trayectoria.sh
 # Uso (desde la raíz):  bash visualizar/pymol.sh visualizar/C_trayectoria.pml
+# --- Ubicar la carpeta del proyecto (para que funcione sin importar desde dónde abras PyMOL) ---
+python
+import os, sys
+from pymol import cmd
+_cands = [os.path.dirname(os.path.dirname(os.path.abspath(a))) for a in sys.argv if a.endswith(".pml")]
+_cands += [os.getcwd(), os.path.dirname(os.getcwd()), os.path.expanduser("~/Documents/githubrepos/genetic-engineering")]
+for _d in _cands:
+    if os.path.isdir(os.path.join(_d, "01_estructuras")):
+        cmd.cd(_d)
+        print("Proyecto:", _d)
+        break
+else:
+    print("NO ENCONTRE EL PROYECTO. En PyMOL escribe:  cd /ruta/al/proyecto   y vuelve a correr el script")
+python end
 reinitialize
 load visualizar/tmp/2A_inicio.pdb, sim2A
 load_traj B_dinamica/2A_colab/proteina.xtc, sim2A

@@ -1,6 +1,8 @@
 # Parte B/C en VMD: película de 1 ns.
 # Requiere antes:  bash visualizar/preparar_trayectoria.sh
 # Uso (desde la raíz):  vmd -e visualizar/C_trayectoria.tcl
+# Ir a la raíz del proyecto sin importar desde dónde se lance VMD
+cd [file join [file dirname [file normalize [info script]]] ..]
 foreach s {2A 2B} {
     mol new visualizar/tmp/${s}_inicio.pdb type pdb waitfor all
     mol addfile B_dinamica/${s}_colab/proteina.xtc type xtc waitfor all

@@ -1,5 +1,7 @@
 # Parte A en VMD: 2A (gris) y 2B (cian) superpuestos sobre el antígeno, mutaciones en rojo/naranja.
 # Uso (desde la raíz):  vmd -e visualizar/A_mutaciones.tcl
+# Ir a la raíz del proyecto sin importar desde dónde se lance VMD
+cd [file join [file dirname [file normalize [info script]]] ..]
 mol new 01_estructuras/System_2A.pdb type pdb waitfor all
 mol new 01_estructuras/System_2B.pdb type pdb waitfor all
 # superponer 2B sobre 2A usando los Cα de la RNasa (cadena A, residuos 2-124: 2A no tiene la Lys1)

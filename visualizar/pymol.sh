@@ -5,7 +5,7 @@
 # Uso (desde cualquier carpeta):  bash visualizar/pymol.sh visualizar/A_mutaciones.pml
 RAIZ=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 cd "$RAIZ"
-if flatpak info org.pymol.PyMOL >/dev/null 2>&1; then
+if ! command -v pymol >/dev/null 2>&1 && flatpak info org.pymol.PyMOL >/dev/null 2>&1; then
     exec flatpak run --filesystem="$RAIZ" org.pymol.PyMOL "$@"
 else
     exec pymol "$@"
