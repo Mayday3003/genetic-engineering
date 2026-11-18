@@ -1,0 +1,56 @@
+=== 1. Tamaño de la interfaz (cristal) ===
+2A: área enterrada 1178 Å²  | pares de átomos pesados a < 4 Å: 100
+2B: área enterrada 1165 Å²  | pares de átomos pesados a < 4 Å: 132
+
+=== 2. Composición de cada lado de la interfaz (corte 4 Å) ===
+2A Nanobody (13 residuos): aromáticos 6; apolares 4; polares 1; positivos 2; negativos 0
+2A RNasa (15 residuos): aromáticos 3; apolares 4; polares 6; positivos 1; negativos 1
+2B Nanobody (14 residuos): aromáticos 5; apolares 4; polares 2; positivos 2; negativos 1
+2B RNasa (15 residuos): aromáticos 3; apolares 3; polares 7; positivos 1; negativos 1
+
+=== 3. Cargas en la interfaz según el corte de distancia ===
+2A corte 4 Å: NB (+)['Arg104', 'Arg106'] (-)- | RNasa (+)['Lys61'] (-)['Glu111']
+2A corte 5 Å: NB (+)['Arg104', 'Arg106'] (-)['Glu102'] | RNasa (+)['Lys61'] (-)['Glu111']
+2A corte 6 Å: NB (+)['Arg45', 'Arg104', 'Arg106'] (-)['Glu102', 'Asp105'] | RNasa (+)['Lys61'] (-)['Glu111']
+2B corte 4 Å: NB (+)['Arg107', 'Arg110'] (-)['Asp101'] | RNasa (+)['Lys61'] (-)['Glu111']
+2B corte 5 Å: NB (+)['Arg107', 'Arg110'] (-)['Asp101'] | RNasa (+)['Lys61'] (-)['Glu111']
+2B corte 6 Å: NB (+)['Arg107', 'Arg110'] (-)['Asp101'] | RNasa (+)['Lys61'] (-)['Glu111']
+
+=== 4. Contactos polares N/O a <= 3.5 Å entre cadenas ===
+2A: 10 contactos
+   Tyr27:OH       – Asn62:N        2.81 Å
+   Tyr27:OH       – Gln60:O        3.48 Å
+   Ile32:N        – Asn62:OD1      2.95 Å
+   Gly99:O        – Tyr115:OH      3.34 Å
+   Gly99:O        – Tyr73:OH       2.65 Å
+   Gly100:O       – Thr70:O        3.38 Å
+   Gly100:O       – Thr70:OG1      2.73 Å
+   Arg106:NE      – Glu111:OE2     3.34 Å
+   Arg106:O       – Gly112:N       2.90 Å
+   Thr107:O       – Tyr115:OH      2.71 Å
+2B: 12 contactos
+   Tyr27:OH       – Asn62:N        2.84 Å
+   Tyr27:OH       – Gln60:O        2.64 Å
+   Ile32:N        – Asn62:OD1      2.94 Å
+   Gly99:O        – Tyr115:OH      3.30 Å
+   Gly99:O        – Tyr73:OH       2.99 Å
+   Gly100:O       – Thr70:O        3.15 Å
+   Gly100:O       – Thr70:OG1      2.69 Å
+   Asp101:OD1     – Thr70:N        3.07 Å
+   Thr106:O       – Gly112:N       2.90 Å
+   Thr106:OG1     – Gly112:N       3.10 Å
+   Arg107:NE      – Glu111:OE1     3.11 Å
+   Arg107:O       – Tyr115:OH      2.66 Å
+
+=== 5. Distancia mínima de cada posición del nanobody a la RNasa (Å) ===
+posición |  2A            |  2B
+  28     |  Ala28 5.8      |  Pro28 5.7     
+  29     |  Tyr29 3.3 toca |  Trp29 3.5 toca
+  30     |  Thr30 4.3      |  Thr30 3.9 toca
+  101    |  Tyr101 3.2 toca|  Asp101 3.1 toca
+  102    |  Glu102 4.8     |  Ala102 4.5     
+  104    |  Arg104 4.0 toca|  Val104 5.9     
+  105    |  Asp105 5.9     |  Ala105 6.0     
+  106    |  Arg106 2.9 toca|  Thr106 2.9 toca
+  107    |  Thr107 2.7 toca|  Arg107 2.7 toca
+  110    |  Gln110 4.9     |  Arg110 3.7 toca

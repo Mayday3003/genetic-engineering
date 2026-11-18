@@ -21,6 +21,7 @@ cd ~/Documents/githubrepos/genetic-engineering
 11. [Preguntas que puede hacer el profe](#11-preguntas-que-puede-hacer-el-profe)
 12. [Guion y checklist para presentar](#12-guion-y-checklist-para-presentar)
 13. [Problemas frecuentes](#13-problemas-frecuentes)
+14. [Visualización manual en la consola de PyMOL](#14-visualización-manual-en-la-consola-de-pymol)
 
 ---
 
@@ -512,3 +513,137 @@ less INFORME_FINAL.md
 | xmgrace no ve la curva | Clic derecho → Autoscale, o `Plot > Autoscale` |
 | Un `.xvg` no abre | Es texto: `grep -v '^[#@]' archivo.xvg | head` |
 | Quiero volver a correr simulaciones | Colab: `B_dinamica/colab/Como_usar_Colab.md` y `D_F_energia/replicas/LEEME.md` |
+
+---
+
+## 14. Visualización manual en la consola de PyMOL
+
+Para armar tú mismo las vistas para el profe. Pega las líneas **una por una** en la consola de PyMOL. Las medidas que sustentan lo que verás están en `A_inspeccion/tablas/analisis_interfaz.txt` (se regeneran con `pymol -cq -d "run visualizar/analisis_interfaz.py"`) y su interpretación, en `INFORME_FINAL.md`.
+
+### 14.1 Cargar y superponer
+```
+reinitialize
+cd /home/mayday3003/Documents/githubrepos/genetic-engineering
+load 01_estructuras/System_2A.pdb, wt
+load 01_estructuras/System_2B.pdb, mut
+align mut and chain A and name CA, wt and chain A and name CA, cycles=0
+hide everything
+show cartoon
+color palegreen, chain A
+color gray70, wt and chain B
+color cyan, mut and chain B
+set cartoon_transparency, 0.6
+```
+`wt` = 2A (inicial), `mut` = 2B (madurada). Cadena A = RNasa, cadena B = nanobody. El `align` debe dar ~0.64 Å (se superpone sobre la RNasa).
+
+### 14.2 Seis objetos: interfaz y mutaciones, antes y después
+Un **objeto** se enciende y apaga con un clic; una **selección** (entre paréntesis en el panel) es solo una lista. `create` copia una selección a un objeto.
+```
+select t1, byres (wt and chain B) within 4 of (wt and chain A)
+select t2, byres (wt and chain A) within 4 of (wt and chain B)
+select t3, byres (mut and chain B) within 4 of (mut and chain A)
+select t4, byres (mut and chain A) within 4 of (mut and chain B)
+select t5, wt and chain B and resi 28+29+101+102+104+105+106+107+110
+select t6, mut and chain B and resi 28+29+101+102+104+105+106+107+110
+create inter_nb_2A, t1
+create inter_rnasa_2A, t2
+create inter_nb_2B, t3
+create inter_rnasa_2B, t4
+create mut_2A, t5
+create mut_2B, t6
+delete t1
+delete t2
+delete t3
+delete t4
+delete t5
+delete t6
+```
+Resultado esperado: 13 y 15 residuos en la interfaz de 2A (nanobody y RNasa), 14 y 15 en 2B, y 9 mutaciones en cada versión.
+
+### 14.3 Estilo con las cargas (licorice = bastones finos)
+```
+hide everything, inter_nb_2A or inter_rnasa_2A or inter_nb_2B or inter_rnasa_2B or mut_2A or mut_2B
+show licorice, inter_nb_2A or inter_rnasa_2A or inter_nb_2B or inter_rnasa_2B
+show sticks, mut_2A or mut_2B
+set stick_radius, 0.12, inter_nb_2A or inter_rnasa_2A or inter_nb_2B or inter_rnasa_2B
+set stick_radius, 0.25, mut_2A or mut_2B
+color gray70, inter_nb_2A
+color cyan, inter_nb_2B
+color palegreen, inter_rnasa_2A or inter_rnasa_2B
+color grey40, mut_2A
+color deepteal, mut_2B
+color blue, (inter_nb_2A or inter_rnasa_2A or inter_nb_2B or inter_rnasa_2B or mut_2A or mut_2B) and resn ARG+LYS
+color red, (inter_nb_2A or inter_rnasa_2A or inter_nb_2B or inter_rnasa_2B or mut_2A or mut_2B) and resn ASP+GLU
+set label_size, 18
+set label_color, white
+label mut_2A and name CA, resn+resi
+label mut_2B and name CA, resn+resi
+```
+**Azul = carga positiva (Arg, Lys). Rojo = negativa (Asp, Glu).** Fino = interfaz, grueso = mutación. Con fondo blanco usa `set label_color, black`.
+
+### 14.4 Antes, después y superpuestas (escenas)
+```
+disable wt
+disable mut
+disable inter_nb_2B
+disable inter_rnasa_2B
+disable mut_2B
+orient inter_nb_2A
+scene 1_antes_2A, store
+disable inter_nb_2A
+disable inter_rnasa_2A
+disable mut_2A
+enable inter_nb_2B
+enable inter_rnasa_2B
+enable mut_2B
+scene 2_despues_2B, store
+enable inter_nb_2A
+enable mut_2A
+scene 3_superpuestas, store
+save visualizar/interfaz_antes_despues.pse
+```
+Para moverte: `scene 1_antes_2A, recall` (y los otros dos nombres). Como el `orient` se hizo antes de guardar, la cámara no se mueve al alternar.
+
+### 14.5 Qué debes ver y cómo leerlo
+- **`mut_2A` (las 9 posiciones antes):** 2 azules (Arg104, Arg106) y 2 rojos (Glu102, Asp105). **`mut_2B` (después):** 2 azules (Arg107, Arg110) y 1 rojo (Asp101).
+- **Interfaz del nanobody (`inter_nb_*`):** 2A solo tiene azules (Arg104, Arg106); 2B tiene dos azules y un rojo (Asp101). Los rojos Glu102 y Asp105 de `mut_2A` **no** están en la interfaz (a 4.8 y 5.9 Å).
+- **Interfaz de la RNasa:** Lys61 (azul) y Glu111 (rojo), igual en 2A y 2B.
+- El resultado depende del corte de 4 Å. Con 5 Å el Glu102 entra a la interfaz de 2A.
+- Tres grupos para entender mutaciones frente a interfaz (5 mutadas que tocan, 4 mutadas que no tocan, 9 que tocan sin mutar): ver `INFORME_FINAL.md`.
+
+### 14.6 Medir distancias
+Un contacto concreto (átomo con átomo):
+```
+distance sal_2B, (mut and chain B and resi 107 and name NE), (mut and chain A and resi 111 and name OE1)
+distance sal_2A, (wt and chain B and resi 106 and name NE), (wt and chain A and resi 111 and name OE2)
+distance asp_thr, (mut and chain B and resi 101 and name OD1), (mut and chain A and resi 70 and name N)
+distance thr_gly, (mut and chain B and resi 106 and name OG1), (mut and chain A and resi 112 and name N)
+distance y27_2A, (wt and chain B and resi 27 and name OH), (wt and chain A and resi 60 and name O)
+distance y27_2B, (mut and chain B and resi 27 and name OH), (mut and chain A and resi 60 and name O)
+```
+Valores esperados: 3.11, 3.34, 3.07, 3.10, 3.48 y 2.64 Å. Para borrar una: `delete sal_2B`.
+
+**Error típico:** `distance d, (selección grande), (selección grande), mode=0` dibuja **todas las parejas átomo–átomo** (miles de líneas amarillas). Para contactos polares usa `mode=2` con un corte (`distance pol, A, B, 3.5, mode=2`) o mide átomos concretos como arriba. Para la distancia mínima de cada mutación: `run visualizar/distancias_mutaciones.py`.
+
+### 14.7 Superficie electrostática (rojo = negativo, azul = positivo)
+```
+create nb2A, wt and chain B
+create nb2B, mut and chain B
+util.protein_vacuum_esp("nb2A", mode=2, quiet=0)
+util.protein_vacuum_esp("nb2B", mode=2, quiet=0)
+```
+Es una aproximación en el vacío: sirve para ver patrones, no valores. Cuenta de cargas: `count_atoms wt and chain B and name CA and resn ARG+LYS` (y `ASP+GLU`, y lo mismo con `mut`): nanobody 12(+)/11(−) en 2A y 12(+)/10(−) en 2B; carga neta **+1 → +2**. La RNasa tiene 14(+)/10(−): neta **+4**.
+
+### 14.8 Guardar y presentar
+```
+save visualizar/interfaz_antes_despues.pse
+png A_inspeccion/figuras/interfaz_antes.png, width=2400, height=1800, dpi=300, ray=1
+```
+PyMOL no guarda solo: repite el `save` cada vez que termines una vista. Para abrir otro día: `pymol visualizar/interfaz_antes_despues.pse`.
+
+### 14.9 Ideas que debes poder explicar con estas vistas
+1. Las mutaciones y la interfaz son **dos listas distintas**; se solapan en 5 posiciones.
+2. La interfaz **no crece** (1178 → 1165 Å²): se reorganiza. El lado de la RNasa casi no cambia; el del nanobody sí.
+3. El puente salino con Glu111 **se conserva pero cambia de arginina** (106 → 107).
+4. Las cargas nuevas de 2B (Asp101, Arg110) **no tienen pareja opuesta cerca**: de ahí que Y101D sea tan desfavorable.
+5. 153× de afinidad son solo ~3 kcal/mol, del orden de un puente de H: cambios pequeños pueden ser suficientes. Pero nuestro cálculo de energía **no** lo demostró (ΔΔG = +1.4 ± 4.5).
