@@ -1,0 +1,11 @@
+Correlación electrostática–solvatación polar por instantánea (6 corridas, 606 instantáneas): r = -0.94, pendiente = -0.80
+2A: SD por instantánea: EEL 14.0 | GB 13.4 | EEL+GB 5.1
+2B: SD por instantánea: EEL 18.4 | GB 15.0 | EEL+GB 6.1
+
+Por componente (media ± SD entre réplicas; ΔΔ = 2B − 2A ± error estándar entre réplicas):
+ΔE vdW                         2A   -69.09 ±  3.82 | 2B   -71.75 ±  3.22 | ΔΔ  -2.66 ± 2.88
+ΔE electrostática              2A   -61.68 ±  6.07 | 2B   -52.07 ± 11.29 | ΔΔ  +9.61 ± 7.40
+ΔG solv. polar (GB)            2A    88.93 ±  8.64 | 2B    83.41 ±  7.51 | ΔΔ  -5.52 ± 6.61
+ΔG solv. no polar              2A    -8.56 ±  0.16 | 2B    -8.63 ±  0.18 | ΔΔ  -0.06 ± 0.14
+Electrostática + solv. polar   2A    27.25 ±  2.67 | 2B    31.34 ±  4.01 | ΔΔ  +4.09 ± 2.78
+ΔG de unión                    2A   -50.40 ±  6.55 | 2B   -49.04 ±  4.09 | ΔΔ  +1.36 ± 4.46

@@ -400,7 +400,7 @@ cat D_F_energia/resultados_mmgbsa/2A/mmgbsa.in
 | Electrostática | +0.7 | Algo peor |
 | Solvatación polar (GB) | −2.0 | Se paga menos por soltar agua |
 | No polar | −0.02 | Sin cambio (misma superficie enterrada) |
-| EEL + GB juntos | −1.3 | Neto favorable |
+| EEL + GB juntos | −1.3 | Neto favorable (**solo en r1**; con 3 réplicas es **+4.1 ± 2.8**, desfavorable: ver `D_F_energia/Explicacion_basica_E.md`) |
 
 Electrostática y solvatación se **compensan** (son grandes y de signo opuesto): solo su suma tiene sentido.
 

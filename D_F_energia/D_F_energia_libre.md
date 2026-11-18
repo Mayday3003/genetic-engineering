@@ -68,7 +68,10 @@ Lo que **no** se sostiene: la ganancia en Gly99, Gly100, Tyr27 y Tyr33 del nanob
 | ΔG solv. no polar | −8.62 | −8.64 | −0.02 ± 0.12 |
 | **ΔΔ(EEL + GB)** | | | **−1.28** |
 
-- La mejora **no** viene de una electrostática directa más fuerte (empeora ligeramente), sino de una **menor penalización de desolvatación polar**. El balance electrostático neto (EEL + GB) aporta ~−1.3 y el empaquetamiento (vdW) ~−0.9.
+- **Con la réplica r1 sola** parecía que la mejora venía de una **menor penalización de desolvatación polar**: el balance EEL + GB daba ~−1.3 y vdW ~−0.9.
+- **Con las 3 réplicas esa lectura no se sostiene** (`tablas/componentes_replicas.txt`, `figuras/E_componentes_replicas.png`): vdW −2.7 ± 2.9; electrostática +9.6 ± 7.4; solvatación polar −5.5 ± 6.6; **EEL + GB = +4.1 ± 2.8 (desfavorable para 2B)**; no polar −0.06 ± 0.14; total +1.4 ± 4.5. El signo de la parte polar cambia entre una réplica y tres: no es fiable.
+- **Compensación:** por instantánea, electrostática y solvatación polar están correlacionadas de forma inversa (r = −0.94, pendiente −0.80; `figuras/E_compensacion.png`); su suma fluctúa 5–6 kcal/mol y cada una por separado 14–18. Por eso solo se interpreta la suma.
+- Explicación básica: [`Explicacion_basica_E.md`](Explicacion_basica_E.md).
 - EEL y GB por separado tienen errores de ~5 kcal/mol y se compensan entre sí; por eso solo se interpreta su suma.
 - El término no polar no cambia: el tamaño de la interfaz enterrada es igual, como se vio en la parte C (número de contactos similar).
 
