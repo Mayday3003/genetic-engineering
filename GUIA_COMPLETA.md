@@ -126,7 +126,7 @@ Una **mutación** como **Y101D** se lee "la Tyr de la posición 101 se cambió p
   | B4 iones | Neutraliza la carga | Una caja cargada da errores |
   | B5 minimización | Quita choques entre átomos | Evita que la simulación "explote" |
   | B6 NVT (100 ps) | Calienta a 298 K | Lleva el sistema a temperatura ambiente |
-  | B7 NPT (100 ps) | Ajusta presión y densidad | Que el agua tenga densidad real |
+  | B7 NPT (500 ps) | Ajusta presión y densidad | Que el agua tenga densidad real |
   | B8 producción (1 ns) | La película que se analiza | Es el dato real |
 
 - **RMSD:** cuánto se aleja una estructura de su punto de partida (en Å o nm). Curva que se aplana = sistema estable.
