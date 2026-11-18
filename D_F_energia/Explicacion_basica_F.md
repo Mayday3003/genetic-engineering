@@ -122,3 +122,26 @@ Colorea 2B por ΔΔG_i (3 réplicas): azul = contribuye más en 2B, rojo = contr
 1. ¿Qué significa que el ΔG_i de un residuo sea negativo? ¿Y su ΔΔG_i?
 2. ¿Por qué las barras de Gly99 y Gly100 de r1 se descartan al mirar las 3 réplicas?
 3. Si las 9 mutaciones suman +3.8 (desfavorable), ¿puede la mejora de afinidad venir de ellas?
+
+---
+
+## 9. Anexo: solo las 9 posiciones mutadas, solo la réplica r1
+Script: `scripts/figuras_mutaciones.py`. Figuras: `figuras/F_mutaciones_dG_r1.png`, `F_mutaciones_ddG_r1.png`, `F_mutaciones_componentes_r1.png`. Tabla: `tablas/mutaciones_r1.txt`. Las posiciones no se escogen por su efecto: son las 9 que difieren en la secuencia (parte A), así que no hay sesgo de selección.
+
+| Mutación | ΔG_i 2A | ΔG_i 2B | ΔΔG_i | vdW | Electrostática | Solv. polar | No polar |
+|---|---|---|---|---|---|---|---|
+| A28P | −0.03 | −0.14 | −0.11 | −0.03 | −0.32 | +0.22 | +0.01 |
+| Y29W | −2.49 | −2.69 | −0.20 | −0.83 | +3.54 | −2.70 | −0.21 |
+| **Y101D** | −5.36 | +1.43 | **+6.79** | +1.27 | −21.96 | +27.39 | +0.08 |
+| E102A | +0.12 | +0.01 | −0.10 | +0.02 | +10.92 | −11.05 | 0.00 |
+| R104V | −0.10 | −0.08 | +0.02 | +0.27 | −10.71 | +10.42 | +0.04 |
+| D105A | +0.66 | +0.08 | −0.59 | +0.05 | +9.65 | −10.28 | 0.00 |
+| **R106T** | −3.66 | −1.12 | **+2.54** | +0.54 | +4.04 | −2.29 | +0.25 |
+| **T107R** | −3.23 | −5.64 | **−2.42** | −1.53 | +4.89 | −5.63 | −0.15 |
+| Q110R | −0.21 | −0.19 | +0.02 | −0.94 | +0.04 | +1.23 | −0.32 |
+| **Suma** | −14.29 | −8.34 | **+5.95** | | | | |
+
+Lectura:
+- Tres mutaciones concentran el cambio: Y101D (+6.8), R106T (+2.5) y T107R (−2.4). La suma de las nueve es +5.95 (desfavorable).
+- **E102A, R104V y D105A** son mutaciones de cargas que no tocan la RNasa: su electrostática cambia ±10 y su solvatación polar cambia ∓10, y el total del residuo queda en ≈ 0 (−0.10, +0.02, −0.59). Es la compensación de la parte E vista residuo a residuo.
+- Los errores de las barras son del trayecto r1 (bloques de 100 ps) y subestiman la incertidumbre real.
