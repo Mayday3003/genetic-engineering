@@ -105,5 +105,17 @@ Con la serie temporal de 500–1000 ps (detalle en `C_analisis/C_analisis_estruc
 - **Puentes de H:** 6.19 ± 0.07 frente a 7.22 ± 0.27, diferencia **+1.03 ± 0.28** (cociente 3.6, d = 0.93). Aunque las curvas se solapan cuadro a cuadro (SD ≈ 1), las distribuciones están desplazadas: 2B tiene 8 o más puentes de H en el 42 % de los cuadros y 2A en el 6 %.
 - **Cautela:** una réplica por sistema; el error de 2B está subestimado (crece con el tamaño del bloque). El +1 puente de H es el resultado neto de ganancias (Asp101–Thr70, Thr106–Gly112) y pérdidas (puente salino con Glu111, contacto con Tyr115). Es una hipótesis compatible con la mejora de afinidad (un puente de H ≈ 1–3 kcal/mol), pero con el ΔΔG de MM/GBSA no concluyente no se puede afirmar que sea la causa. Reproducir con `python3 scripts/estadistica_c3.py`.
 
+### 8. Por qué el RMSD del complejo es igual si el del nanobody es distinto
+| Medida (500–1000 ps) | 2A | 2B |
+|---|---|---|
+| RMSD interno del nanobody (cambio de forma) | **1.53 Å** | 0.88 Å |
+| RMSD interno de la RNasa | 1.21 Å | 0.89 Å |
+| Desplazamiento del nanobody sobre la RNasa | 2.48 Å | **3.12 Å** |
+| RMSD del complejo | 1.57 Å | 1.55 Å |
+
+El RMSD del complejo mezcla dos tipos de movimiento: el cambio de forma de cada proteína y el desplazamiento de una respecto a la otra. En 2A pesa más el cambio de forma del nanobody; en 2B, el desplazamiento relativo. Ambos efectos se compensan y el total queda casi igual. Es una interpretación **compatible** con los datos, no una descomposición medida (para demostrarla habría que calcular la contribución de cada término), y la diferencia de desplazamiento (3.12 frente a 2.48 Å) está dentro del ruido (±0.5 y ±0.65 Å). Por eso se miden cuatro curvas de RMSD y no una. Además, la RNasa tampoco es idéntica entre sistemas (1.21 frente a 0.89 Å): las dos partes cambian algo y ninguna sale del rango normal (1–1.5 Å).
+
+Otra medida que no distingue entre sistemas: la **distancia mínima entre cadenas** (≈1.75 Å en 2A y 1.70 Å en 2B). Solo comprueba que el complejo no se separa (siempre hay un par de átomos a distancia de puente de H); no dice cuántos contactos hay ni qué tan fuertes son, así que no sirve para decidir cuál une mejor.
+
 ## Limitaciones y mejoras
 Más réplicas con estructuras de partida distintas, trayectorias más largas (≥10 ns), comparación con PB o `igb=5`, y estimación de entropía.

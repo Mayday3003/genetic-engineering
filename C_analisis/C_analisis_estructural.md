@@ -34,6 +34,8 @@ Promedio ± desviación entre 500 y 1000 ps, en Å.
 
 El desplazamiento del nanobody visto en los cristales se mantiene en solución. Ojo: su tamaño (~2.6 Å) es parecido a la oscilación propia de cada sistema (2.5–3.1 Å), así que no se puede tratar como una diferencia exacta.
 
+- Por qué el RMSD del complejo coincide aunque el del nanobody difiera (compensación entre cambio de forma y desplazamiento relativo): sección 8 de `../INFORME_FINAL.md`.
+
 ### C3. Contactos de la interfaz y persistencia
 Promedios entre 500 y 1000 ps.
 
