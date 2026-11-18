@@ -1,6 +1,6 @@
 # D–F. Energía libre (gmx_MMPBSA): segunda entrega
 
-Explicación básica de la parte D, con definiciones y gráfica por gráfica: [`Explicacion_basica_D.md`](Explicacion_basica_D.md).
+Explicaciones básicas: parte D [`Explicacion_basica_D.md`](Explicacion_basica_D.md), parte E [`Explicacion_basica_E.md`](Explicacion_basica_E.md) y parte F [`Explicacion_basica_F.md`](Explicacion_basica_F.md).
 
 ## Qué se hizo
 - Notebook: [`Colab_MMPBSA_Pareja2.ipynb`](Colab_MMPBSA_Pareja2.ipynb) (gmx_MMPBSA 1.7.1, AmberTools 26, GROMACS 2026.3). Entrada: trayectorias sin agua de `B_dinamica/*_colab/` empaquetadas en `datos_md_pareja2.zip`.
