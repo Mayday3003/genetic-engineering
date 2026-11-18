@@ -13,7 +13,7 @@ Las dos estructuras son casi iguales (0.99 Å global), pero 9 mutaciones en CDR1
 2. **Similitud real.** Cada cadena conserva su forma, pero el nanobody se desplaza 2.1 Å respecto a la RNasa en el cristal y 2.6 Å en MD, del orden de su oscilación propia. La interfaz conserva su tamaño y cambia de composición (entran Arg110 y Thr30, sale Arg104).
 3. **Origen de la mejora.** No queda demostrado con este modelo: ΔΔG(3 réplicas) = +1.4 ± 4.5 (r1 sola: −2.2). Lo reproducible es un cambio local de la interfaz, no del tamaño (el término no polar no cambia) ni de la geometría global.
 4. **¿Individual o cooperativo?** Las 9 posiciones mutadas suman +3.8 kcal/mol (desfavorables), con Tyr101→Asp (+6.5) y Arg106→Thr (+1.3) perdidos y Thr107→Arg (−2.7) ganado; la RNasa suma −1.9 (Gln69 −2.0). El efecto cooperativo en residuos no mutados del nanobody que mostraba r1 no se reproduce, por lo que no se puede afirmar con estos datos.
-5. **Mapa energético.** Cambia en lo local: 2A se apoya en Tyr101, 2B en Arg107 y en Gln69 de la RNasa. Los cambios de Tyr115 y Glu111 (vistos en r1 y en la parte C) quedan dentro del ruido entre réplicas.
+5. **Mapa energético.** Cambia en lo local: 2A se apoya en Tyr101, 2B en Arg107 y en Gln69 de la RNasa. Los cambios de energía de Tyr115 y Glu111 que mostraba r1 no se sostienen con tres réplicas (+0.16 y +0.25, dentro del ruido); el debilitamiento de sus contactos en la MD de 2B (parte C) proviene de una sola réplica.
 6. **Acuerdo con el experimento.** Con una réplica parecía bueno (−2.2 vs −3.0); con tres no hay acuerdo concluyente (+1.4 ± 4.5; 5 de 9 combinaciones con signo correcto). Falta entropía, muestreo (réplicas con estructuras distintas, más de 1 ns) y quizá otro modelo de solvatación (PB). La variabilidad en EEL y GB (±10 kcal/mol, compensados entre sí) es la principal fuente de ruido.
 
 ## Análisis detallado de la interfaz
@@ -105,7 +105,7 @@ El **núcleo de la interfaz**, sobre todo los contactos de esqueleto (Gly, Ile y
 Con la serie temporal de 500–1000 ps (detalle en `C_analisis/C_analisis_estructural.md`, sección C3b):
 - **Pares de átomos < 4 Å:** 551 ± 6 frente a 562 ± 5, diferencia +11 ± 8 (cociente 1.4, d = 0.30): **sin evidencia de diferencia.**
 - **Puentes de H:** 6.19 ± 0.07 frente a 7.22 ± 0.27, diferencia **+1.03 ± 0.28** (cociente 3.6, d = 0.93). Aunque las curvas se solapan cuadro a cuadro (SD ≈ 1), las distribuciones están desplazadas: 2B tiene 8 o más puentes de H en el 42 % de los cuadros y 2A en el 6 %.
-- **Cautela:** una réplica por sistema; el error de 2B está subestimado (crece con el tamaño del bloque). El +1 puente de H es el resultado neto de ganancias (Asp101–Thr70, Thr106–Gly112) y pérdidas (puente salino con Glu111, contacto con Tyr115). Es una hipótesis compatible con la mejora de afinidad (un puente de H ≈ 1–3 kcal/mol), pero con el ΔΔG de MM/GBSA no concluyente no se puede afirmar que sea la causa. Reproducir con `python3 scripts/estadistica_c3.py`.
+- **Cautela:** una réplica por sistema; el error de 2B está subestimado (crece con el tamaño del bloque). El +1 puente de H es el resultado neto de ganancias (Asp101–Thr70, Thr106–Gly112) y pérdidas (puente salino con Glu111, contacto con Tyr115). Es una hipótesis compatible con la mejora de afinidad (un puente de H ≈ 1–3 kcal/mol), pero con el ΔΔG de MM/GBSA no concluyente no se puede afirmar que sea la causa. Reproducir con `python3 scripts/estadistica_c3.py`. (El conteo de la MD incluye hidrógenos; no es comparable con los ~100–130 pares de átomos pesados de los cristales.)
 
 ### 8. Por qué el RMSD del complejo es igual si el del nanobody es distinto
 | Medida (500–1000 ps) | 2A | 2B |
@@ -118,6 +118,40 @@ Con la serie temporal de 500–1000 ps (detalle en `C_analisis/C_analisis_estruc
 El RMSD del complejo mezcla dos tipos de movimiento: el cambio de forma de cada proteína y el desplazamiento de una respecto a la otra. En 2A pesa más el cambio de forma del nanobody; en 2B, el desplazamiento relativo. Ambos efectos se compensan y el total queda casi igual. Es una interpretación **compatible** con los datos, no una descomposición medida (para demostrarla habría que calcular la contribución de cada término), y la diferencia de desplazamiento (3.12 frente a 2.48 Å) está dentro del ruido (±0.5 y ±0.65 Å). Por eso se miden cuatro curvas de RMSD y no una. Además, la RNasa tampoco es idéntica entre sistemas (1.21 frente a 0.89 Å): las dos partes cambian algo y ninguna sale del rango normal (1–1.5 Å).
 
 Otra medida que no distingue entre sistemas: la **distancia mínima entre cadenas** (≈1.75 Å en 2A y 1.70 Å en 2B). Solo comprueba que el complejo no se separa (siempre hay un par de átomos a distancia de puente de H); no dice cuántos contactos hay ni qué tan fuertes son, así que no sirve para decidir cuál une mejor.
+
+### 9. Componentes de la energía (parte E, 3 réplicas; ΔΔ = 2B − 2A, ± error entre réplicas)
+| Término | ΔΔ (kcal/mol) |
+|---|---|
+| vdW | −2.66 ± 2.88 |
+| Electrostática | +9.61 ± 7.40 |
+| Solvatación polar (GB) | −5.52 ± 6.61 |
+| **Electrostática + solvatación polar** | **+4.09 ± 2.78** |
+| Solvatación no polar | **−0.06 ± 0.14** |
+| **ΔG de unión** | **+1.36 ± 4.46** |
+
+- La **contribución no polar no cambia** (coherente con el área enterrada igual).
+- **Electrostática y solvatación polar se compensan** (por instantánea r = −0.94, pendiente −0.80): cada una fluctúa 14–18 kcal/mol y su suma 5–6; solo la suma tiene sentido físico (la electrostática en agua).
+- vdW es el único término que apunta hacia la mejora (mejor encaje), sin significación. El signo de la parte polar **no es fiable**: con la réplica 1 sola era −1.28 y con tres réplicas es +4.09.
+- Figuras: `D_F_energia/figuras/E_compensacion.png`, `E_componentes_replicas.png`; tabla: `D_F_energia/tablas/componentes_replicas.txt`.
+
+### 10. Contribución por mutación (parte F, réplica r1; ΔΔG_i = 2B − 2A)
+| Mutación | Antes → después | ΔΔG_i |
+|---|---|---|
+| A28P | Ala → Pro | −0.11 |
+| Y29W | Tyr → Trp | −0.20 |
+| **Y101D** | Tyr → Asp | **+6.79** |
+| E102A | Glu → Ala | −0.10 |
+| R104V | Arg → Val | +0.02 |
+| D105A | Asp → Ala | −0.59 |
+| **R106T** | Arg → Thr | **+2.54** |
+| **T107R** | Thr → Arg | **−2.42** |
+| Q110R | Gln → Arg | +0.02 |
+| **Suma** | | **+5.95** |
+
+- Las tres mutaciones con efecto **tocan la RNasa y cambian de carácter químico**. R106T y T107R suman ≈ +0.12 (la arginina del puente salino con Glu111 "se corre" una posición). Casi todo el +5.95 viene de Y101D.
+- E102A, R104V y D105A tienen electrostática y solvatación polar de ±10 que se cancelan (totales ≈ 0): no tocan la RNasa.
+- Con 3 réplicas la suma baja a +3.76; los cambios que se repiten en las tres réplicas son Tyr101→Asp (+6.1 a +6.8 por réplica), Thr107→Arg (−2.0 a −3.7), Gln69 de la RNasa (−1.9 a −2.2) y, con más variación, Arg106→Thr (+0.25 a +2.5).
+- Figuras: `D_F_energia/figuras/F_mutaciones_*_r1.png`, `F_top_ddg_replicas.png`.
 
 ## Limitaciones y mejoras
 Más réplicas con estructuras de partida distintas, trayectorias más largas (≥10 ns), comparación con PB o `igb=5`, y estimación de entropía.
