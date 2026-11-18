@@ -621,7 +621,7 @@ distance thr_gly, (mut and chain B and resi 106 and name OG1), (mut and chain A 
 distance y27_2A, (wt and chain B and resi 27 and name OH), (wt and chain A and resi 60 and name O)
 distance y27_2B, (mut and chain B and resi 27 and name OH), (mut and chain A and resi 60 and name O)
 ```
-Valores esperados: 3.11, 3.34, 3.07, 3.10, 3.48 y 2.64 Å. Para borrar una: `delete sal_2B`.
+Valores esperados: 3.11, 3.34, 3.07, 3.10, 3.48 y 2.64 Å. Ojo: esas son distancias del **cristal**; en la dinámica el acortamiento de Tyr27–Gln60 no persiste (ocupación 9 % en 2A y 2 % en 2B). Para borrar una: `delete sal_2B`.
 
 **Error típico:** `distance d, (selección grande), (selección grande), mode=0` dibuja **todas las parejas átomo–átomo** (miles de líneas amarillas). Para contactos polares usa `mode=2` con un corte (`distance pol, A, B, 3.5, mode=2`) o mide átomos concretos como arriba. Para la distancia mínima de cada mutación: `run visualizar/distancias_mutaciones.py`.
 

@@ -68,7 +68,7 @@ Son 10 en 2A y 12 en 2B:
 | **Se transfieren a otro residuo** (3) | puente salino Arg106→Arg107 con Glu111; Arg106 O→Thr106 O con Gly112 N; Thr107 O→Arg107 O con Tyr115 OH |
 | **Nuevos en 2B** (2) | Asp101 OD1–Thr70 N (3.07 Å); Thr106 OG1–Gly112 N (3.10 Å) |
 
-\* Tyr27 no mutó, pero su contacto con Gln60 O se acorta de 3.48 a 2.64 Å (0.84 Å): pasa de casi tocar a formar un puente de H.
+\* Tyr27 no mutó, pero en los cristales su contacto con Gln60 O se acorta de 3.48 a 2.64 Å (0.84 Å): pasa de casi tocar a formar un puente de H. **En la dinámica ese acortamiento no persiste** (500–1000 ps: 3.89 Å con 9 % de ocupación en 2A y 4.17 Å con 2 % en 2B; ver parte C), así que es un indicio del cristal y no una ganancia confirmada en solución.
 
 El **núcleo de la interfaz**, sobre todo los contactos de esqueleto (Gly, Ile y los O/N de la cadena principal), es el mismo en las dos variantes. Cambia la periferia.
 
@@ -80,12 +80,12 @@ El **núcleo de la interfaz**, sobre todo los contactos de esqueleto (Gly, Ile y
 | Contactos polares N/O | 10 | 12 |
 
 1. **La escala es logarítmica.** 153× en KD son solo **2.98 kcal/mol**; cada factor de 10 equivale a 1.36 kcal/mol (RT ln 10). Un puente de H o salino bien formado aporta del orden de 1–3 kcal/mol, así que dos contactos nuevos ya están en ese rango. No hay proporción lineal entre cuánto cambia la estructura y cuánto cambia la KD.
-2. **La energía depende mucho de la distancia.** Tyr27–Gln60 pasa de 3.48 a 2.64 Å: de contacto dudoso a puente de H.
+2. **La energía depende mucho de la distancia.** En el cristal, Tyr27–Gln60 pasa de 3.48 a 2.64 Å: de contacto dudoso a puente de H. Es un ejemplo de *por qué* décimas de Å importan, pero ese caso concreto **no se sostiene en la MD** (ocupación de 9 % y 2 %), así que no debe presentarse como una ganancia real de 2B.
 3. **Mejor encaje, no más área:** los pares de átomos a < 4 Å suben un 32 % con la misma superficie enterrada, lo que suma vdW.
 4. **Lo que el cristal no ve (hipótesis):** en la MD el nanobody de 2B es internamente más rígido (RMSD 0.88 frente a 1.53 Å); si está más preorganizado, pierde menos libertad al unirse. Con una réplica de 1 ns no se puede afirmar.
 
 ### 6. Qué se puede y qué no se puede afirmar
-- **Sí:** hay contactos nuevos (Asp101–Thr70, Thr106–Gly112), el de Tyr27 se acorta, el puente salino con Glu111 pasa a Arg107, y Y101D pierde un residuo importante (reproducible).
+- **Sí (en el cristal):** hay contactos nuevos (Asp101–Thr70, Thr106–Gly112; en la MD el de Asp101–Thr70 persiste el 67 % del tiempo y el de Thr106–Gly112 el 34 %), el puente salino con Glu111 pasa a Arg107, y Y101D pierde un residuo importante (reproducible).
 - **No:** que la suma de estos cambios dé −2.98 kcal/mol. En las 3 réplicas de MM/GBSA el ΔΔG fue **+1.4 ± 4.5**: el método no distingue las variantes. La explicación estructural es plausible, no una prueba.
 - Esto sale de **cristales estáticos**: en la dinámica el puente salino de 2B es menos estable (78 % del tiempo frente a 96 % en 2A), y el análisis electrostático no puede interpretarse sin la desolvatación, porque ambos términos se compensan.
 
