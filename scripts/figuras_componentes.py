@@ -65,7 +65,7 @@ for n, k in terminos:
 fig, ax = nueva(7, 4.2)
 ax.barh(nombres[::-1], dd[::-1], xerr=err[::-1], color=AZUL, height=0.55, capsize=3, error_kw=dict(lw=1))
 ax.axvline(0, color="k", lw=1)
-ax.axvline(DDG_EXP, color="k", ls="--", lw=1, label=f"ΔΔG experimental ({DDG_EXP})")
+ax.axvline(DDG_EXP, color="k", ls="--", lw=1, label=f"Referencia de escala: ΔΔG experimental del total ({DDG_EXP}); solo se compara con la barra de ΔG de unión")
 leyenda_abajo(ax, ncol=1)
 ax.set(xlabel="ΔΔ = 2B − 2A (kcal/mol), media de 3 réplicas ± error entre réplicas",
        title="Cambio de energía por componente (3 réplicas)")
@@ -111,7 +111,7 @@ for n, k in terminos:
 fig, ax = nueva(7, 4.2)
 ax.barh(nom1[::-1], dd1[::-1], xerr=er1[::-1], color=AZUL, height=0.55, capsize=3, error_kw=dict(lw=1))
 ax.axvline(0, color="k", lw=1)
-ax.axvline(DDG_EXP, color="k", ls="--", lw=1, label=f"ΔΔG experimental ({DDG_EXP})")
+ax.axvline(DDG_EXP, color="k", ls="--", lw=1, label=f"Referencia de escala: ΔΔG experimental del total ({DDG_EXP}); solo se compara con la barra de ΔG de unión")
 leyenda_abajo(ax, ncol=1)
 ax.set(xlabel="ΔΔ = 2B − 2A (kcal/mol), réplica r1 ± error por bloques de la trayectoria",
        title="Cambio de energía por componente (réplica r1)")

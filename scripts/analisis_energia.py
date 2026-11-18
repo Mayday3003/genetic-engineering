@@ -103,7 +103,7 @@ fig, ax = nueva(7, 4)
 p = g[g.termino.isin(["ΔE vdW", "ΔE electrostática", "ΔG solv. polar (GB)", "ΔG solv. no polar", "ΔG unión"])][::-1]
 ax.barh(p.termino, p.ddG, xerr=p.ddG_sem, color=AZUL, height=0.55, capsize=3, error_kw=dict(lw=1))
 ax.axvline(0, color="k", lw=1)
-ax.axvline(DDG_EXP, color="k", ls="--", lw=1, label=f"ΔΔG experimental ({DDG_EXP})")
+ax.axvline(DDG_EXP, color="k", ls="--", lw=1, label=f"Referencia de escala: ΔΔG experimental del total ({DDG_EXP}); solo se compara con la barra de ΔG de unión")
 leyenda_abajo(ax, ncol=1)
 ax.set(xlabel="ΔΔG = 2B − 2A (kcal/mol)", title="Cambio de energía por componente (réplica r1)")
 guardar(fig, FIG / "D_componentes_ddg.png")
