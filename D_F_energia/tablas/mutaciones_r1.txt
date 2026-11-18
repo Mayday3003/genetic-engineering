@@ -1,3 +1,4 @@
+Tipos: apolar, arom. (aromático), polar (sin carga), (+) y (−) = aminoácido con carga, arom. = aromático
 Réplica r1, las 9 posiciones mutadas (kcal/mol). ΔΔG = 2B − 2A; error = SEM por bloques de la trayectoria
 mutación    ΔG_i 2A  ΔG_i 2B   ΔΔG_i     ±     vdW   Elec.   Polar  NoPol.
 A28P          -0.03    -0.14   -0.11  0.01   -0.03   -0.32    0.22    0.01

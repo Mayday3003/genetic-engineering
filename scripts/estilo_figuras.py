@@ -12,8 +12,8 @@ plt.rcdefaults()
 def nueva(ancho=7, alto=4):
     return plt.subplots(figsize=(ancho, alto))
 
-def leyenda_abajo(ax, ncol=2, **kw):
-    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.16), ncol=ncol, frameon=False, **kw)
+def leyenda_abajo(ax, ncol=2, y=-0.16, **kw):
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, y), ncol=ncol, frameon=False, **kw)
 
 def guardar(fig, ruta):
     fig.tight_layout()
