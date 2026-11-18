@@ -35,4 +35,4 @@ Cada parte tiene un documento `.md` con su letra y tema (por ejemplo `A_inspecci
 - En MD 2B tiene ~1 puente de H más (6.2 → 7.2), pero con pérdidas parciales: el puente salino con Glu111 y el enlace con Tyr115 son menos estables.
 - MM/GBSA, 3 réplicas por sistema: ΔΔGcalc = +1.4 ± 4.5 kcal/mol (exp. −2.98). La réplica original daba −2.22, pero la variabilidad entre réplicas supera la diferencia: el método no resuelve 2A vs 2B con 1 ns.
 - Reproducible entre réplicas: pérdida de Tyr101→Asp (+6.5), ganancia de Arg107 (−2.7) y de Gln69 de la RNasa (−2.0).
-- Interfaz: mismo área enterrada (1178 → 1165 Å²) pero 32 % más contactos atómicos; el puente salino con Glu111 pasa de Arg106 a Arg107; Asp101 y Arg110 (nuevos en 2B) no tienen pareja de carga opuesta cerca. Detalle en `INFORME_FINAL.md`.
+- Interfaz: mismo área enterrada (1178 → 1165 Å²) pero 32 % más contactos atómicos; el puente salino con Glu111 pasa de Arg106 a Arg107; Asp101 y Arg110 (nuevos en 2B) no tienen pareja de carga opuesta en la RNasa, pero Asp101 forma un puente salino interno con Arg107 (99 % de la MD), que sustituye al Asp105–Arg45 de 2A. Detalle en `INFORME_FINAL.md`.

@@ -166,7 +166,7 @@ load 01_estructuras/System_2B.pdb, mut
 
 ### A6. Análisis ampliado de la interfaz (cargas, composición y contactos)
 - Script: `visualizar/analisis_interfaz.py` (PyMOL) → resultados completos en `tablas/analisis_interfaz.txt`. El desarrollo, las tablas y la interpretación están en la sección *Análisis detallado de la interfaz* de `../INFORME_FINAL.md`.
-- Resumen: área enterrada igual (1178 → 1165 Å²) pero más pares de átomos a < 4 Å (100 → 132); interfaz del nanobody rica en aromáticos y glicinas frente a una interfaz de la RNasa polar y casi idéntica entre 2A y 2B; el puente salino con Glu111 se conserva pero pasa de Arg106 a Arg107; las dos cargas nuevas de 2B (Asp101, Arg110) no tienen pareja opuesta cerca.
+- Resumen: área enterrada igual (1178 → 1165 Å²) pero más pares de átomos a < 4 Å (100 → 132); interfaz del nanobody rica en aromáticos y glicinas frente a una interfaz de la RNasa polar y casi idéntica entre 2A y 2B; el puente salino con Glu111 se conserva pero pasa de Arg106 a Arg107; las dos cargas nuevas de 2B (Asp101, Arg110) no tienen pareja opuesta en la RNasa, aunque Asp101 forma un puente salino interno con Arg107.
 - Visualización paso a paso en PyMOL: `../GUIA_COMPLETA.md`, sección 14.
 
 ### Respuestas parciales

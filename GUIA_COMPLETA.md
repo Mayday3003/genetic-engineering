@@ -645,5 +645,5 @@ PyMOL no guarda solo: repite el `save` cada vez que termines una vista. Para abr
 1. Las mutaciones y la interfaz son **dos listas distintas**; se solapan en 5 posiciones.
 2. La interfaz **no crece** (1178 → 1165 Å²): se reorganiza. El lado de la RNasa casi no cambia; el del nanobody sí.
 3. El puente salino con Glu111 **se conserva pero cambia de arginina** (106 → 107).
-4. Las cargas nuevas de 2B (Asp101, Arg110) **no tienen pareja opuesta cerca**: de ahí que Y101D sea tan desfavorable.
+4. Las cargas nuevas de 2B (Asp101, Arg110) **no tienen pareja opuesta en la RNasa**; Asp101 se une a Arg107 dentro del propio nanobody. Y101D es desfavorable en energía porque se pierde un aromático clave y la carga paga desolvatación frente al antígeno.
 5. 153× de afinidad son solo ~3 kcal/mol, del orden de un puente de H: cambios pequeños pueden ser suficientes. Pero nuestro cálculo de energía **no** lo demostró (ΔΔG = +1.4 ± 4.5).

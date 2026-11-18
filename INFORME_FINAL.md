@@ -57,7 +57,17 @@ Las cargas **negativas** de la interfaz de 2A dependen del corte: con 4 Å la ú
 
 Cargas netas totales: nanobody **+1 (2A) → +2 (2B)**; RNasa **+4**. La RNasa es básica en conjunto, así que **más carga positiva en el nanobody no atrae por sí sola**; si acaso repele de lejos. Lo que importa es qué carga queda frente a cuál:
 - **Puente salino Arg–Glu111:** se conserva, pero cambia de arginina: Arg106–Glu111 (3.34 Å) en 2A y Arg107–Glu111 (3.11 Å) en 2B. Además, Arg104 en 2A estaba a 4.9 Å del Glu111 y se pierde (R104V): en 2A había dos argininas cerca del Glu111 y en 2B una.
-- **Las dos cargas nuevas de 2B no tienen pareja opuesta cerca.** Asp101 (−) queda a 7.2 Å del Glu111, que también es negativo; Arg110 (+) queda a 9.5 Å de la Lys61, también positiva. Una carga sin pareja cercana paga la desolvatación sin ganar atracción, lo que encaja con que **Y101D sea la mutación más desfavorable** en la parte energética (ΔΔG_i ≈ +6.5 kcal/mol, reproducible en las 3 réplicas).
+- **Las dos cargas nuevas de 2B no tienen pareja opuesta en la RNasa.** Asp101 (−) queda a 7.2 Å del Glu111, que también es negativo; Arg110 (+) queda a 9.5 Å de la Lys61, también positiva. Hacia el antígeno, una carga sin pareja paga la desolvatación sin ganar atracción, lo que encaja con que **Y101D sea la mutación más desfavorable** en la parte energética (ΔΔG_i ≈ +6.5 kcal/mol, reproducible en las 3 réplicas).
+- **Pero Asp101 sí tiene pareja dentro del propio nanobody: Arg107.** Forman un puente salino interno (2.9 Å en el cristal; en la MD de 2B la distancia mínima media es 2.9 Å y el contacto está presente el **99 %** del tiempo entre 200 y 1000 ps). Es la carga positiva que "aparece al lado" del Asp101.
+
+### 3b. Puentes salinos internos del CDR3: cambian de lugar
+| Sistema | Puente interno (Asp/Glu – Arg) | Cristal | MD (200–1000 ps) |
+|---|---|---|---|
+| 2A | Asp105 – Arg45 (del esqueleto) | 2.3 Å | 2.8 Å, 100 % |
+| 2A | Glu102 – Arg104 | 4.8 Å | 3.9 Å, 53 % |
+| 2B | **Asp101 – Arg107** (nuevo) | 2.9 Å | 2.9 Å, 99 % |
+
+En 2A el CDR3 se ancla al esqueleto del nanobody mediante Asp105–Arg45 (y de forma parcial, Glu102–Arg104); en 2B, esas cargas desaparecen (D105A, E102A, R104V) y el CDR3 se estabiliza con un puente nuevo, **dentro del propio lazo** (Asp101–Arg107). **Hipótesis** (no demostrada, una réplica por sistema): esto podría contribuir a que el nanobody de 2B sea internamente más rígido (RMSD 0.88 frente a 1.53 Å) y quede más preorganizado para unirse, lo que reduciría la pérdida de libertad al unirse. Se reproduce con `bash scripts/puentes_salinos_internos.sh`.
 
 ### 4. Contactos polares (N/O a ≤ 3.5 Å)
 Son 10 en 2A y 12 en 2B:
