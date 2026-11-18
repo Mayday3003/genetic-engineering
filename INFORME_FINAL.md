@@ -7,6 +7,8 @@ Detalle y datos: [A](A_inspeccion/A_inspeccion_inicial.md) · [B](B_dinamica/B_d
 Las dos estructuras son casi iguales (0.99 Å global), pero 9 mutaciones en CDR1 y CDR3 reorganizan la interfaz. Con una sola trayectoria MM/GBSA daba ΔΔG = −2.22 kcal/mol, cercano al experimental (−2.98). Con 3 réplicas por sistema el resultado es **ΔΔG = +1.4 ± 4.5**: la variabilidad entre réplicas supera la diferencia, así que **el método (GB, 1 ns, sin entropía) no reproduce de forma fiable la mejora de afinidad**. Sí son reproducibles cambios locales: se pierde el hotspot Tyr101 (+6.5), gana Arg107 (−2.7) y gana Gln69 de la RNasa (−2.0).
 
 ## Respuestas
+
+> Versión ampliada, con evidencia y límites de cada una: [`RESPUESTAS_PREGUNTAS.md`](RESPUESTAS_PREGUNTAS.md).
 1. **Modificaciones.** 9 mutaciones, todas en CDR1 (A28P, Y29W) y CDR3 (Y101D, E102A, R104V, D105A, R106T, T107R, Q110R). En contacto directo en 2B: Y29W, Y101D, R106T, T107R, Q110R. R104V elimina un contacto de 2A. A28P, E102A y D105A no tocan el antígeno (efecto indirecto).
 2. **Similitud real.** Cada cadena conserva su forma, pero el nanobody se desplaza 2.1 Å respecto a la RNasa en el cristal y 2.6 Å en MD, del orden de su oscilación propia. La interfaz conserva su tamaño y cambia de composición (entran Arg110 y Thr30, sale Arg104).
 3. **Origen de la mejora.** No queda demostrado con este modelo: ΔΔG(3 réplicas) = +1.4 ± 4.5 (r1 sola: −2.2). Lo reproducible es un cambio local de la interfaz, no del tamaño (el término no polar no cambia) ni de la geometría global.
