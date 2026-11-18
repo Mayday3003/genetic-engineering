@@ -374,6 +374,8 @@ Colorea **2B** según ΔΔG_i (promedio de 3 réplicas): **azul = el residuo con
 
 Para solo ver la interfaz dentro de PyMOL: `hide cartoon, not (byres chain B within 8 of chain A)`.
 
+**Explicación básica de la parte D (definiciones y las tres gráficas, una por una):** `D_F_energia/Explicacion_basica_D.md`.
+
 ### Recalcular todo desde los datos crudos
 ```bash
 .venv/bin/python scripts/analisis_energia.py
