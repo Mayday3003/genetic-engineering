@@ -336,7 +336,7 @@ PATH=$PWD/.venv/bin:$PATH bash scripts/figuras_2A_vs_2B.sh   # todas las figuras
 | Thr30 (no mutado) | casi no toca | toca 38% | Entra a la interfaz |
 | Arg110 | 0.18 | 0.85 | Se vuelve contacto persistente |
 
-**Guía detallada para interpretar estas gráficas:** `C_analisis/Guia_graficas.md` (qué mide cada una, qué se puede y no se puede afirmar, frases para presentar) y figuras en `C_analisis/figuras/explicativas/`.
+**Explicación básica de cada figura:** `C_analisis/Explicacion_basica_figuras.md`. **Guía detallada para interpretar estas gráficas:** `C_analisis/Guia_graficas.md` (qué mide cada una, qué se puede y no se puede afirmar, frases para presentar) y figuras en `C_analisis/figuras/explicativas/`.
 
 **Cómo leer gráficas superpuestas (importante):**
 - Los `.xvg` de GROMACS están en **nm**: 0.15 nm = 1.5 Å (1 nm = 10 Å). En xmgrace, la curva negra es el primer archivo del comando y la roja el segundo (no hay leyenda).

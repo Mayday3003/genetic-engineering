@@ -6,7 +6,7 @@
 - Cálculos: `../B_dinamica/colab/analizar_sistema.sh` y `../scripts/persistencia_interfaz.sh`
 - Grupos: antígeno = `Protein_chain1` (cadena A); nanobody = `Protein_chain2` (cadena B). Las selecciones son iguales en los dos sistemas.
 
-- **Cómo leer las gráficas de esta parte (RMSD, puentes de H y contactos), con figuras explicativas y frases modelo:** [`Guia_graficas.md`](Guia_graficas.md).
+- **Cómo leer las gráficas de esta parte (RMSD, puentes de H y contactos), con figuras explicativas y frases modelo:** [`Guia_graficas.md`](Guia_graficas.md). Explicación básica, figura por figura de la carpeta `figuras/`: [`Explicacion_basica_figuras.md`](Explicacion_basica_figuras.md).
 
 ### C1. Corrección de PBC
 `gmx trjconv -pbc nojump -center` sobre el grupo Protein. Resultado: `proteina.xtc` y `proteina.tpr` en cada carpeta `*_colab/`.
