@@ -1,7 +1,8 @@
 """Parte E: componentes de energía y su compensación (electrostática frente a solvatación polar).
 Uso:  .venv/bin/python scripts/figuras_componentes.py
 Lee D_F_energia/resultados_mmgbsa/{2A,2B}/ (r1) y D_F_energia/replicas/resultados/{2A,2B}_r{2,3}/.
-Genera D_F_energia/figuras/E_compensacion.png y E_componentes_replicas.png y tablas/componentes_replicas.txt
+Genera D_F_energia/figuras/E_compensacion.png y E_componentes_replicas.png (3 réplicas) y
+E_compensacion_r1.png y E_componentes_r1.png (solo la primera corrida), con tablas/componentes_replicas.txt y componentes_r1.txt
 """
 import sys
 from pathlib import Path
@@ -70,4 +71,50 @@ ax.set(xlabel="ΔΔ = 2B − 2A (kcal/mol), media de 3 réplicas ± error entre 
        title="Cambio de energía por componente (3 réplicas)")
 guardar(fig, E / "figuras/E_componentes_replicas.png")
 (E / "tablas/componentes_replicas.txt").write_text("\n".join(out) + "\n", encoding="utf-8")
+
+# ---------- Versiones de la PRIMERA corrida (r1) sola ----------
+def sem_bloques(x, n=5):
+    return np.std([b.mean() for b in np.array_split(np.asarray(x, float), n)], ddof=1) / np.sqrt(n)
+
+out1 = []
+def log1(x=""):
+    print(x); out1.append(x)
+
+# compensación, solo r1
+fig, ax = nueva(7, 4.6)
+xs1, ys1 = [], []
+for s, col in (("2A", AZUL), ("2B", NARANJA)):
+    x, y = datos[(s, 1)]["EEL"].values, datos[(s, 1)]["EGB"].values
+    ax.scatter(x, y, s=12, color=col, alpha=0.7, label=s)
+    xs1 += list(x); ys1 += list(y)
+pend1, orig1 = np.polyfit(xs1, ys1, 1); r1c = np.corrcoef(xs1, ys1)[0, 1]
+xx = np.array([min(xs1), max(xs1)])
+ax.plot(xx, pend1 * xx + orig1, "k--", lw=1, label=f"ajuste: pendiente {pend1:.2f}, r = {r1c:.2f}")
+ax.set(xlabel="ΔE electrostática (kcal/mol)", ylabel="ΔG solvatación polar, GB (kcal/mol)",
+       title="Compensación entre electrostática y solvatación polar (réplica r1, una instantánea por punto)")
+leyenda_abajo(ax, ncol=3)
+guardar(fig, E / "figuras/E_compensacion_r1.png")
+log1(f"Réplica r1: correlación electrostática–solvatación polar por instantánea (n = {len(xs1)}): r = {r1c:.2f}, pendiente = {pend1:.2f}, GB = {pend1:.2f}·EEL + {orig1:.1f}")
+
+# componentes, solo r1 (error = SEM por bloques de 100 ps, 5 bloques)
+log1("\nRéplica r1, por componente (media ± SEM por bloques; ΔΔ = 2B − 2A):")
+nom1, dd1, er1 = [], [], []
+for n, k in terminos:
+    ser = {}
+    for s in ("2A", "2B"):
+        d_ = datos[(s, 1)]
+        ser[s] = (d_["EEL"].values + d_["EGB"].values) if k is None else d_[k].values
+    a, b = ser["2A"], ser["2B"]
+    dif = b.mean() - a.mean(); e1 = np.hypot(sem_bloques(a), sem_bloques(b))
+    nom1.append(n); dd1.append(dif); er1.append(e1)
+    log1(f"{n:30s} 2A {a.mean():8.2f} ± {sem_bloques(a):5.2f} | 2B {b.mean():8.2f} ± {sem_bloques(b):5.2f} | ΔΔ {dif:+6.2f} ± {e1:4.2f}")
+fig, ax = nueva(7, 4.2)
+ax.barh(nom1[::-1], dd1[::-1], xerr=er1[::-1], color=AZUL, height=0.55, capsize=3, error_kw=dict(lw=1))
+ax.axvline(0, color="k", lw=1)
+ax.axvline(DDG_EXP, color="k", ls="--", lw=1, label=f"ΔΔG experimental ({DDG_EXP})")
+leyenda_abajo(ax, ncol=1)
+ax.set(xlabel="ΔΔ = 2B − 2A (kcal/mol), réplica r1 ± error por bloques de la trayectoria",
+       title="Cambio de energía por componente (réplica r1)")
+guardar(fig, E / "figuras/E_componentes_r1.png")
+(E / "tablas/componentes_r1.txt").write_text("\n".join(out1) + "\n", encoding="utf-8")
 print("Figuras en", E / "figuras")

@@ -1,5 +1,7 @@
 # Explicación básica de la parte E (componentes de energía)
 
+Figuras de la **primera corrida sola (r1)**, sin réplicas: `figuras/E_compensacion_r1.png` y `figuras/E_componentes_r1.png` (datos en `tablas/componentes_r1.txt`). Las versiones con las 3 réplicas son `E_compensacion.png` y `E_componentes_replicas.png`.
+
 Requiere haber leído `Explicacion_basica_D.md` (definiciones de ΔG, ΔΔG y MM/GBSA). Datos en `tablas/`, figuras en `figuras/`. Se reproduce con `.venv/bin/python scripts/figuras_componentes.py`.
 
 ## 1. Qué pide el enunciado en la parte E
