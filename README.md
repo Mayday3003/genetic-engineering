@@ -5,6 +5,8 @@ System_2A = inicial (KD 23 nM) · System_2B = madurada (KD 0.15 nM) · ΔΔGexp 
 
 **Origen de las estructuras:** VHH cAb-RN05 de dromedario unido a RNasa A bovina. System_2A viene de PDB [2P49](https://www.rcsb.org/structure/2P49) (1.38 Å) y System_2B de [2P4A](https://www.rcsb.org/structure/2P4A) (1.90 Å). Artículo: Koide et al., *J. Mol. Biol.* 2007, 373:941 ([DOI](https://doi.org/10.1016/j.jmb.2007.08.027)). Detalles en [A_inspeccion](A_inspeccion/A_inspeccion_inicial.md#a1b-origen-de-las-estructuras).
 
+**Para estudiar y presentar:** empieza por [GUIA_COMPLETA.md](GUIA_COMPLETA.md) (biología desde cero, comandos para ver cada resultado) y [INFORME_FINAL.md](INFORME_FINAL.md).
+
 | Carpeta | Contenido | Entrega |
 |---|---|---|
 | [00_enunciado/](00_enunciado/) | Instrucciones del proyecto (.docx) | — |
