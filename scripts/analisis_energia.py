@@ -28,7 +28,9 @@ TAB.mkdir(parents=True, exist_ok=True)
 DDG_EXP = -2.98
 CADENA = {"R": "NB", "L": "RNasa"}
 MUTADOS = {28, 29, 101, 102, 104, 105, 106, 107, 110}
-plt.rcParams.update({"figure.dpi": 150, "axes.spines.top": False, "axes.spines.right": False})
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from estilo_figuras import AZUL, NARANJA, nueva, leyenda_abajo, guardar
 
 
 def block_sem(x, n=5):
@@ -97,28 +99,23 @@ el = g.set_index("termino").loc[["ΔE electrostática", "ΔG solv. polar (GB)"],
 log(f"\nΔΔG_calc = {tot.ddG:+.2f} ± {tot.ddG_sem:.2f} kcal/mol   ΔΔG_exp = {DDG_EXP:+.2f}")
 log(f"ΔΔ(EEL + EGB) = {el:+.2f} kcal/mol")
 
-fig, ax = plt.subplots(figsize=(7.5, 3.6), layout="constrained")
+fig, ax = nueva(7, 4)
 p = g[g.termino.isin(["ΔE vdW", "ΔE electrostática", "ΔG solv. polar (GB)", "ΔG solv. no polar", "ΔG unión"])][::-1]
-ax.barh(p.termino, p.ddG, xerr=p.ddG_sem, color=["#2a9d8f" if v < 0 else "#e76f51" for v in p.ddG],
-        height=0.55, error_kw=dict(lw=1))
-ax.axvline(0, color="#444", lw=1)
-ax.axvline(DDG_EXP, color="#1d3557", ls="--", lw=1.2, label=f"ΔΔG exp = {DDG_EXP}")
-ax.legend(frameon=False)
-ax.set(xlabel="ΔΔG = 2B − 2A (kcal/mol)", title="D–E. Cambio por componente")
-fig.savefig(FIG / "D_componentes_ddg.png")
-plt.close(fig)
+ax.barh(p.termino, p.ddG, xerr=p.ddG_sem, color=AZUL, height=0.55, capsize=3, error_kw=dict(lw=1))
+ax.axvline(0, color="k", lw=1)
+ax.axvline(DDG_EXP, color="k", ls="--", lw=1, label=f"ΔΔG experimental ({DDG_EXP})")
+leyenda_abajo(ax, ncol=1)
+ax.set(xlabel="ΔΔG = 2B − 2A (kcal/mol)", title="Cambio de energía por componente (réplica r1)")
+guardar(fig, FIG / "D_componentes_ddg.png")
 
 t = np.linspace(500, 1000, len(d["2A"]))
-fig, ax = plt.subplots(figsize=(7.5, 3.2), layout="constrained")
-for s, lbl, col in (("2A", "2A (inicial)", "#6c757d"), ("2B", "2B (madurada)", "#2a9d8f")):
-    y = d[s]["TOTAL"].to_numpy()
-    ax.plot(t, y, alpha=0.35, lw=1, color=col)
-    ax.plot(t, pd.Series(y).rolling(10, min_periods=1, center=True).mean(), lw=2, color=col,
-            label=f"{lbl}: media {y.mean():.1f}")
-ax.set(xlabel="Tiempo (ps)", ylabel="ΔG unión (kcal/mol)", title="D. ΔG de unión en la ventana analizada")
-ax.legend(frameon=False)
-fig.savefig(FIG / "D_serie_tiempo_dG.png")
-plt.close(fig)
+fig, ax = nueva(7, 4)
+for sis, col in (("2A", AZUL), ("2B", NARANJA)):
+    y = d[sis]["TOTAL"].to_numpy()
+    ax.plot(t, y, lw=1, color=col, label=f"{sis} (prom. {y.mean():.4g})")
+ax.set(xlabel="Tiempo (ps)", ylabel="ΔG de unión (kcal/mol)", title="ΔG de unión en la ventana de análisis (réplica r1)")
+leyenda_abajo(ax)
+guardar(fig, FIG / "D_serie_tiempo_dG.png")
 
 # ---------- F: descomposición por residuo ----------
 r = {s: decomp(RES / s / "FINAL_DECOMP_MMPBSA.csv") for s in ("2A", "2B")}
@@ -159,33 +156,30 @@ log("\nResiduos presentes en un solo sistema: " +
     ", ".join(etiqueta(x) for x in df[(df.res_2A == "-") | (df.res_2B == "-")].itertuples()))
 
 t18 = top.head(18)[::-1]
-fig, ax = plt.subplots(figsize=(7.5, 5.5), layout="constrained")
-colores = ["#2a9d8f" if v < 0 else "#e76f51" for v in t18.ddG]
-ax.barh([etiqueta(x) for x in t18.itertuples()], t18.ddG, xerr=t18.ddG_sem, color=colores, height=0.65,
-        error_kw=dict(lw=1))
-ax.axvline(0, color="#444", lw=1)
-ax.set(xlabel="ΔΔG_i = ΔG_i(2B) − ΔG_i(2A) (kcal/mol)", title="F. Residuos que más cambian su contribución")
-fig.savefig(FIG / "F_top_ddg_residuo.png")
-plt.close(fig)
+fig, ax = nueva(7, 6)
+ax.barh([etiqueta(x) for x in t18.itertuples()], t18.ddG, xerr=t18.ddG_sem, color=AZUL, height=0.65,
+        capsize=2, error_kw=dict(lw=1))
+ax.axvline(0, color="k", lw=1)
+ax.set(xlabel="ΔΔG del residuo = ΔG(2B) − ΔG(2A) (kcal/mol)", title="Residuos que más cambian su contribución (réplica r1)")
+guardar(fig, FIG / "F_top_ddg_residuo.png")
 
 # Mapa de la interfaz: ΔG_i en 2A vs 2B de residuos con |ΔG_i| > 0.5 en algún sistema
 sel = df[(df.dG_2A.abs() > 0.5) | (df.dG_2B.abs() > 0.5)].sort_values(["cadena", "num"])
-fig, axs = plt.subplots(1, 2, figsize=(10, 4.5), layout="constrained", sharey=True,
+fig, axs = plt.subplots(1, 2, figsize=(10, 4.5), sharey=True,
                         gridspec_kw=dict(width_ratios=[(sel.cadena == "NB").sum(), (sel.cadena == "RNasa").sum()]))
 for ax, cad in zip(axs, ("NB", "RNasa")):
-    s = sel[sel.cadena == cad]
-    x = np.arange(len(s))
-    ax.bar(x - 0.2, s.dG_2A, 0.4, color="#6c757d", label="2A")
-    ax.bar(x + 0.2, s.dG_2B, 0.4, color="#2a9d8f", label="2B")
-    ax.set_xticks(x, [f"{a}{n}" + (f"/{b}" if a != b else "") for a, b, n in zip(s.res_2A, s.res_2B, s.num)],
+    s_ = sel[sel.cadena == cad]
+    x = np.arange(len(s_))
+    ax.bar(x - 0.2, s_.dG_2A, 0.4, color=AZUL, label="2A")
+    ax.bar(x + 0.2, s_.dG_2B, 0.4, color=NARANJA, label="2B")
+    ax.set_xticks(x, [f"{a}{n}" + (f"/{b}" if a != b else "") for a, b, n in zip(s_.res_2A, s_.res_2B, s_.num)],
                   rotation=90, fontsize=7)
-    ax.axhline(0, color="#444", lw=0.8)
+    ax.axhline(0, color="k", lw=0.8)
     ax.set_title("Nanobody" if cad == "NB" else "RNasa A")
-axs[0].set_ylabel("ΔG_i (kcal/mol)")
-axs[0].legend(frameon=False)
-fig.suptitle("F. Mapa energético de la interfaz (|ΔG_i| > 0.5 en algún sistema)")
-fig.savefig(FIG / "F_mapa_interfaz.png")
-plt.close(fig)
+axs[0].set_ylabel("Contribución del residuo ΔG (kcal/mol)")
+fig.legend(*axs[0].get_legend_handles_labels(), loc="lower center", ncol=2, frameon=False, bbox_to_anchor=(0.5, -0.04))
+fig.suptitle("Mapa energético de la interfaz, réplica r1 (|ΔG| > 0.5 en algún sistema)")
+guardar(fig, FIG / "F_mapa_interfaz.png")
 
 (TAB / "resumen_energia.txt").write_text("\n".join(lineas) + "\n", encoding="utf-8")
 print(f"\nGuardado en {FIG} y {TAB}")

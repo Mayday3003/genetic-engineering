@@ -63,15 +63,17 @@ log(f"\nΔΔG_calc = {dd:+.2f} ± {se:.2f} (error estándar entre réplicas)   �
 log(f"Réplicas con ΔΔG negativo (2B−2A, combinaciones): {(comb['TOTAL'] < 0).sum()} de {len(comb)}")
 
 # Figura
-fig, ax = plt.subplots(figsize=(5.5, 3.6), layout="constrained")
-for i, s in enumerate(("2A", "2B")):
-    y = df[df.sis == s].TOTAL
-    ax.scatter([i] * len(y), y, color=["#6c757d", "#2a9d8f"][i], zorder=3)
-    ax.hlines(y.mean(), i - 0.25, i + 0.25, color="k")
-ax.set_xticks([0, 1], ["2A (inicial)", "2B (madurada)"])
-ax.set(ylabel="ΔG unión (kcal/mol)", title=f"ΔG por réplica (ΔΔG = {dd:+.2f} ± {se:.2f})")
+from estilo_figuras import AZUL, NARANJA, nueva, leyenda_abajo, guardar
+fig, ax = nueva(7, 4)
+for i, (sis, col) in enumerate((("2A", AZUL), ("2B", NARANJA))):
+    y = df[df.sis == sis].TOTAL
+    ax.scatter([i] * len(y), y, color=col, zorder=3, s=40, label=f"{sis} (prom. {y.mean():.4g})")
+    ax.hlines(y.mean(), i - 0.25, i + 0.25, color="k", lw=1.5)
+ax.set_xticks([0, 1], ["2A", "2B"]); ax.set_xlim(-0.6, 1.6)
+ax.set(ylabel="ΔG de unión (kcal/mol)", title=f"ΔG de unión por réplica (ΔΔG = {dd:+.2f} ± {se:.2f} kcal/mol)")
+leyenda_abajo(ax)
 (E / "figuras").mkdir(exist_ok=True)
-fig.savefig(E / "figuras/D_replicas_dG.png", dpi=150)
+guardar(fig, E / "figuras/D_replicas_dG.png")
 
 # Descomposición por residuo promediada entre réplicas
 def promedio(s):
@@ -103,13 +105,17 @@ t15 = r.reindex(r.ddG.abs().sort_values(ascending=False).index).head(15)[::-1]
 def etiq(x):
     mut = f"→{x.res_2B}" if x.res_2A != x.res_2B else ""
     return f"{x.cadena}:{x.res_2A}{x.num}{mut}"
-fig, ax = plt.subplots(figsize=(7.5, 5.5), layout="constrained")
-ax.barh([etiq(x) for x in t15.itertuples()], t15.ddG, xerr=t15.ddG_se,
-        color=["#2a9d8f" if v < 0 else "#e76f51" for v in t15.ddG], height=0.65,
-        edgecolor=["black" if sg else "none" for sg in t15.significativo], linewidth=1.6, error_kw=dict(lw=1))
-ax.axvline(0, color="#444", lw=1)
-ax.set(xlabel="ΔΔG_i = ΔG_i(2B) − ΔG_i(2A) (kcal/mol), media de 3 réplicas ± error entre réplicas",
-       title="F. Residuos que más cambian (borde negro = |ΔΔG_i| > 2× error)")
-fig.savefig(E / "figuras/F_top_ddg_replicas.png", dpi=150)
+import matplotlib.patches as mpatches
+fig, ax = nueva(7, 6)
+sig = list(t15.significativo)
+ax.barh([etiq(x) for x in t15.itertuples()], t15.ddG, xerr=t15.ddG_se, height=0.65, capsize=2, error_kw=dict(lw=1),
+        color=[AZUL if v else "lightsteelblue" for v in sig])
+ax.axvline(0, color="k", lw=1)
+ax.set(xlabel="ΔΔG del residuo = ΔG(2B) − ΔG(2A) (kcal/mol), media de 3 réplicas ± error entre réplicas",
+       title="Residuos que más cambian su contribución (3 réplicas)")
+ax.legend(handles=[mpatches.Patch(color=AZUL, label="cambio mayor que 2× el error entre réplicas"),
+                   mpatches.Patch(color="lightsteelblue", label="dentro del ruido")],
+          loc="upper center", bbox_to_anchor=(0.5, -0.1), ncol=1, frameon=False)
+guardar(fig, E / "figuras/F_top_ddg_replicas.png")
 
 (E / "tablas/resumen_replicas.txt").write_text("\n".join(out) + "\n", encoding="utf-8")
