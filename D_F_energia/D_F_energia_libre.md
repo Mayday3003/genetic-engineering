@@ -18,6 +18,8 @@
 python scripts/analisis_energia.py
 ```
 
+> **Qué réplica muestra cada figura:** `D_componentes_ddg.png`, `D_serie_tiempo_dG.png`, `F_top_ddg_residuo.png` y `F_mapa_interfaz.png` son de la **réplica r1 sola** (las produce `scripts/analisis_energia.py`); sus barras de error son del mismo trayecto y subestiman la incertidumbre real. Las figuras `D_replicas_dG.png` y `F_top_ddg_replicas.png` combinan las **3 réplicas** (`scripts/analisis_replicas.py`) y son las que sustentan las conclusiones.
+
 ## Resultado con 3 réplicas (el resultado principal)
 
 La corrida original (r1) se complementó con 2 réplicas por sistema (r2, r3; mismo protocolo, otra semilla de velocidades; ver [`replicas/LEEME.md`](replicas/LEEME.md)). Salida: `tablas/resumen_replicas.txt`, `tablas/descomposicion_replicas.csv`, `figuras/D_replicas_dG.png`.
