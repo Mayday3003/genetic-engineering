@@ -62,6 +62,29 @@ Persistencia por residuo: fracción de frames entre 200 y 1000 ps con algún át
 - Los cambios de huella de A4 se confirman: Arg110 se vuelve un contacto persistente, Arg104 pierde el suyo y Thr30, sin estar mutado, entra de forma parcial.
 - 2B tiene ~1 puente de H más en promedio, una diferencia cercana a la fluctuación (±1).
 
+### C3b. ¿Es real la diferencia de contactos y puentes de H? (análisis estadístico)
+Script: `scripts/estadistica_c3.py` → `datos/estadistica_C3.txt`. Ventana 500–1000 ps; el error es el SEM por bloques (5 bloques de 100 ps), el mismo criterio de la parte D. Los puentes de H son un conteo geométrico automático de GROMACS entre nanobody y RNasa.
+
+| Medida | 2A | 2B | Diferencia 2B − 2A | dif./error | d de Cohen |
+|---|---|---|---|---|---|
+| Puentes de H (media ± SEM) | 6.19 ± 0.07 | 7.22 ± 0.27 | **+1.03 ± 0.28** | 3.6 | 0.93 |
+| Pares de átomos < 4 Å | 551 ± 6 | 562 ± 5 | +11 ± 8 | 1.4 | 0.30 |
+
+Distribución de puentes de H por cuadro (500–1000 ps):
+
+| N.º de puentes de H | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---|---|---|---|---|---|---|
+| 2A | 5 % | 18 % | 35 % | 36 % | 6 % | 0 % | 0 % |
+| 2B | 1 % | 7 % | 22 % | 29 % | 27 % | 13 % | 2 % |
+
+- **Contactos < 4 Å:** las dos curvas se superponen casi por completo. La diferencia (+11 ± 8) es menor que 1.5 veces su error y el tamaño del efecto es pequeño (d = 0.30): **no hay evidencia de más contactos en 2B** en la dinámica. Es coherente con que el área enterrada de los cristales sea igual.
+- **Puentes de H:** en la gráfica las curvas también se solapan (las dos oscilan entre ~4 y ~9 en cada cuadro, SD ≈ 1), pero las **distribuciones** sí están desplazadas: 2B pasa más tiempo en 8 o más puentes (42 % de los cuadros frente al 6 % de 2A) y en 2A domina 6–7. La diferencia media (+1.0) es unas 3.6 veces su error dentro de esta trayectoria y el efecto es grande (d = 0.93). Probabilidad de que un cuadro al azar de 2B tenga más puentes que uno de 2A: 73 %.
+- **Por qué el solapamiento visual engaña:** cada cuadro tiene una oscilación de ±1 (es un conteo de enteros que cambia con cada vibración), pero la media de 500 cuadros se conoce mucho mejor. Para ver la diferencia hay que comparar medias y distribuciones, no curvas.
+- **Error de 2B subestimado:** el SEM de 2B crece con el tamaño del bloque (0.11 → 0.27) y no se estabiliza, es decir, la serie de 2B tiene deriva lenta y los cuadros están correlacionados; su incertidumbre real es mayor que 0.27. El de 2A es plano (0.07).
+- **Límite principal:** es **una sola réplica por sistema**. En la parte D vimos que la variación entre réplicas de MM/GBSA es 4–7 veces mayor que el error dentro de una trayectoria; lo mismo puede ocurrir aquí. El +1 puente de H es un indicio, no una prueba.
+- **Qué lo compone:** no son 1.0 puentes ganados sin pérdidas. En C4 se ve que ganan Asp101–Thr70 (67 % del tiempo) y Thr106–Gly112 (34 %), y se debilitan Arg–Glu111 (78 % frente a 96 %) y esqueleto 107–Tyr115 (32 % frente a 100 %). El saldo neto es +1.
+- **¿Explica la afinidad?** Un puente de H bien formado aporta del orden de 1–3 kcal/mol, que es compatible con los −2.98 kcal/mol, pero MM/GBSA con 3 réplicas no resolvió la diferencia (ΔΔG = +1.4 ± 4.5), así que **no se puede afirmar** que sea la causa.
+
 ### C4. Entorno de los residuos mutados
 Distancias entre 200 y 1000 ps. "Ocupación" = fracción de frames a < 3.5 Å.
 

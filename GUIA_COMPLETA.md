@@ -336,6 +336,11 @@ PATH=$PWD/.venv/bin:$PATH bash scripts/figuras_2A_vs_2B.sh   # todas las figuras
 | Thr30 (no mutado) | casi no toca | toca 38% | Entra a la interfaz |
 | Arg110 | 0.18 | 0.85 | Se vuelve contacto persistente |
 
+**Cómo leer gráficas superpuestas (importante):**
+- Los `.xvg` de GROMACS están en **nm**: 0.15 nm = 1.5 Å (1 nm = 10 Å). En xmgrace, la curva negra es el primer archivo del comando y la roja el segundo (no hay leyenda).
+- Cuando dos curvas se solapan cuadro a cuadro no significa que no haya diferencia: lo que se compara son **medias con su error** y las **distribuciones**. `python3 scripts/estadistica_c3.py` lo calcula (puentes de H: 6.2 → 7.2 ± 0.3, probablemente real en esta trayectoria; contactos < 4 Å: +11 ± 8, sin diferencia).
+- Con una sola réplica no se puede confirmar: el ruido entre réplicas puede ser mayor que el error dentro de una.
+
 **Conclusión de C:** la maduración **no agranda** la interfaz, la **reorganiza**. La imagen estática del cristal (10 → 12 contactos polares) exagera la ganancia. Responde las preguntas 2 y parte de la 4.
 
 ---

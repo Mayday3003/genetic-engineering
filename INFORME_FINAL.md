@@ -99,5 +99,11 @@ El **núcleo de la interfaz**, sobre todo los contactos de esqueleto (Gly, Ile y
 - **No:** que la suma de estos cambios dé −2.98 kcal/mol. En las 3 réplicas de MM/GBSA el ΔΔG fue **+1.4 ± 4.5**: el método no distingue las variantes. La explicación estructural es plausible, no una prueba.
 - Esto sale de **cristales estáticos**: en la dinámica el puente salino de 2B es menos estable (78 % del tiempo frente a 96 % en 2A), y el análisis electrostático no puede interpretarse sin la desolvatación, porque ambos términos se compensan.
 
+### 7. Puentes de H y contactos en la dinámica (¿es real la diferencia?)
+Con la serie temporal de 500–1000 ps (detalle en `C_analisis/C_analisis_estructural.md`, sección C3b):
+- **Pares de átomos < 4 Å:** 551 ± 6 frente a 562 ± 5, diferencia +11 ± 8 (cociente 1.4, d = 0.30): **sin evidencia de diferencia.**
+- **Puentes de H:** 6.19 ± 0.07 frente a 7.22 ± 0.27, diferencia **+1.03 ± 0.28** (cociente 3.6, d = 0.93). Aunque las curvas se solapan cuadro a cuadro (SD ≈ 1), las distribuciones están desplazadas: 2B tiene 8 o más puentes de H en el 42 % de los cuadros y 2A en el 6 %.
+- **Cautela:** una réplica por sistema; el error de 2B está subestimado (crece con el tamaño del bloque). El +1 puente de H es el resultado neto de ganancias (Asp101–Thr70, Thr106–Gly112) y pérdidas (puente salino con Glu111, contacto con Tyr115). Es una hipótesis compatible con la mejora de afinidad (un puente de H ≈ 1–3 kcal/mol), pero con el ΔΔG de MM/GBSA no concluyente no se puede afirmar que sea la causa. Reproducir con `python3 scripts/estadistica_c3.py`.
+
 ## Limitaciones y mejoras
 Más réplicas con estructuras de partida distintas, trayectorias más largas (≥10 ns), comparación con PB o `igb=5`, y estimación de entropía.
