@@ -12,4 +12,4 @@ Objetivo: pasar de 1 réplica a 3 por sistema (r1 = corrida original; r2, r3 nue
 5. Actualiza `D_F_energia_libre.md` e `INFORME_FINAL.md` con la media ± error entre réplicas y qué residuos del ΔΔG_i son significativos.
 
 ## Estado de la verificación
-El script de análisis se probó con datos simulados (copias de r1). Los notebooks y `replica.sh` **no se han ejecutado en Colab**: la sintaxis está revisada, pero si una celda falla, copia el error.
+Los notebooks y `replica.sh` **se ejecutaron en Colab**: los resultados de r2 y r3 de ambos sistemas están en `resultados/` (`2A_r2`, `2A_r3`, `2B_r2`, `2B_r3`, cada uno con `mmgbsa/FINAL_*`). Los `mmgbsa.in` de las seis corridas (r1, r2, r3) son idénticos salvo `sys_name`. El análisis agregado está en `tablas/resumen_replicas.txt`.
