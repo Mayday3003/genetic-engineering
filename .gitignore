@@ -4,3 +4,9 @@ Untitled*.ipynb
 .venv/
 visualizar/tmp/
 visualizar/cargas.pse
+
+# Archivos >50 MB (no caben en GitHub); copia local solamente
+B_dinamica/2A/npt.trr
+B_dinamica/*/md.xtc
+referencia_clase_gromacs/npt.trr
+proyecto_2-*.zip
